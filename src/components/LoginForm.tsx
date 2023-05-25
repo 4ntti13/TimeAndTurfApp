@@ -31,7 +31,7 @@ const LoginForm: React.FC<Props> = ({ navigation }) => {
         navigation.navigate('WorksiteSelection');
 
       } else {
-        setErrorMessage('Kirjautuminen epäonnistui.');
+        setErrorMessage('Kirjautuminen epäonnistui, tunnus tai salasana väärin!');
       }
     } catch (error) {
       setErrorMessage((error as any).message);
