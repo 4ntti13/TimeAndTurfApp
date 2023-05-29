@@ -7,11 +7,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginForm from '../components/LoginForm';
 import WorksiteSelection from '../components/WorksiteSelection';
+import WorksiteDetails from '../components/WorksiteDetails';
 
 export type RootStackParamList = {
   Login: undefined;
-  Register: undefined;
   WorksiteSelection: undefined;
+  WorksiteDetails: { customer: any; worksite: any; };
+  // add other routes here
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -22,6 +24,7 @@ const AppNavigator: React.FC = () => {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginForm} />
         <Stack.Screen name="WorksiteSelection" component={WorksiteSelection} />
+        <Stack.Screen name="WorksiteDetails" component={WorksiteDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

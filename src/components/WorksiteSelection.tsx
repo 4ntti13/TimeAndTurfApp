@@ -3,8 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { Picker } from '@react-native-picker/picker';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigation/AppNavigator';
 
-const WorksiteSelection: React.FC = () => {
+type WorksiteSelectionNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'WorksiteSelection'
+>;
+
+type Props = {
+  navigation: WorksiteSelectionNavigationProp;
+};
+
+const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
   const [customers, setCustomers] = useState<any[]>([]);
   const [worksites, setWorksites] = useState<any[]>([]);
   const [selectedCustomer, setSelectedCustomer] = useState<any>(null);
@@ -30,16 +41,23 @@ const WorksiteSelection: React.FC = () => {
     fetchWorksites();
   }, []);
 
-  const handleCustomerChange = (itemValue: any, itemIndex: number) => {
-    setSelectedCustomer(customers[itemIndex]);
+  const handleCustomerChange = (value: any) => {
+    const selected = customers.find((customer) => customer.id === value);
+    setSelectedCustomer(selected);
   };
 
-  const handleWorksiteChange = (itemValue: any, itemIndex: number) => {
-    setSelectedWorksite(worksites.filter((worksite) => worksite.customerId === selectedCustomer.id)[itemIndex]);
+  const handleWorksiteChange = (value: any) => {
+    const selected = worksites.find((worksite) => worksite.id === value);
+    setSelectedWorksite(selected);
   };
 
   const handleButtonPress = () => {
-    // Logiikka "Tallenna valinta" -painikkeen painallukselle
+    if (selectedCustomer && selectedWorksite) {
+      navigation.navigate('WorksiteDetails', {
+        customer: selectedCustomer,
+        worksite: selectedWorksite,
+      });
+    }
   };
 
   return (
@@ -48,27 +66,27 @@ const WorksiteSelection: React.FC = () => {
         <Text style={styles.headerText}>Valitse asiakas ja työmaa</Text>
       </View>
       <View style={styles.pickerContainer}>
-        <Picker
-          style={styles.picker}
+      <Picker
           selectedValue={selectedCustomer?.id}
           onValueChange={handleCustomerChange}
+          style={styles.picker}
         >
           {customers.map((customer) => (
-            <Picker.Item key={customer.id} label={customer.name} value={customer.id} />
+            <Picker.Item label={customer.name} value={customer.id} key={customer.id} />
           ))}
         </Picker>
       </View>
       <View style={styles.pickerContainer}>
-        <Picker
-          style={styles.picker}
+      <Picker
           selectedValue={selectedWorksite?.id}
           onValueChange={handleWorksiteChange}
-          enabled={selectedCustomer !== null}
+          style={styles.picker}
+          enabled={!!selectedCustomer}
         >
-          {worksites
+          {selectedCustomer && worksites
             .filter((worksite) => worksite.customerId === selectedCustomer?.id)
             .map((worksite) => (
-              <Picker.Item key={worksite.id} label={worksite.name} value={worksite.id} />
+              <Picker.Item label={worksite.name} value={worksite.id} key={worksite.id} />
             ))}
         </Picker>
       </View>
