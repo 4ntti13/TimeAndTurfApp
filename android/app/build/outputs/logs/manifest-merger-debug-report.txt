@@ -8,6 +8,7 @@ MERGED from C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:1:
 MERGED from [com.facebook.flipper:flipper-network-plugin:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\512e42cc0c381508f2d1b1ddcc0193bd\transformed\jetified-flipper-network-plugin-0.125.0\AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\db3a645b5c401b5669a12f79ae5c6c0c\transformed\jetified-flipper-fresco-plugin-0.125.0\AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\1de5dee59d1627955e42d3d6205f726e\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:8:1-18:12
+MERGED from [:react-native-community_datetimepicker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-picker_picker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-gesture-handler] C:\Oppari\TimeAndTurfApp\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-safe-area-context] C:\Oppari\TimeAndTurfApp\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
@@ -100,6 +101,8 @@ application
 ADDED from C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:5:5-24:19
 MERGED from C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:5:5-24:19
 MERGED from C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:5:5-24:19
+MERGED from [:react-native-community_datetimepicker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-20
+MERGED from [:react-native-community_datetimepicker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-20
 MERGED from [com.facebook.react:react-android:0.71.8] C:\Users\antti\.gradle\caches\transforms-3\22566865d31ef74cdd0cb020b75ed98d\transformed\jetified-react-android-0.71.8-debug\AndroidManifest.xml:9:5-20
 MERGED from [com.facebook.react:react-android:0.71.8] C:\Users\antti\.gradle\caches\transforms-3\22566865d31ef74cdd0cb020b75ed98d\transformed\jetified-react-android-0.71.8-debug\AndroidManifest.xml:9:5-20
 MERGED from [com.facebook.soloader:soloader:0.10.4] C:\Users\antti\.gradle\caches\transforms-3\fda04c29f37516b0434cb97f63a52366\transformed\jetified-soloader-0.10.4\AndroidManifest.xml:11:5-20
@@ -176,6 +179,8 @@ MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.125.0] C:\Users\antti\
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\db3a645b5c401b5669a12f79ae5c6c0c\transformed\jetified-flipper-fresco-plugin-0.125.0\AndroidManifest.xml:11:5-13:41
 MERGED from [com.facebook.flipper:flipper:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\1de5dee59d1627955e42d3d6205f726e\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:11:5-13:41
 MERGED from [com.facebook.flipper:flipper:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\1de5dee59d1627955e42d3d6205f726e\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:11:5-13:41
+MERGED from [:react-native-community_datetimepicker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-community_datetimepicker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-picker_picker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-picker_picker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-gesture-handler] C:\Oppari\TimeAndTurfApp\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41

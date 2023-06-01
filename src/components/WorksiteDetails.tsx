@@ -1,10 +1,13 @@
 /* eslint-disable prettier/prettier */
+
+/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 type WorksiteDetailsRouteProp = RouteProp<RootStackParamList, 'WorksiteDetails'>;
 
@@ -19,17 +22,22 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
   const [selectedMaterial, setSelectedMaterial] = useState('');
   const [tools, setTools] = useState<any[]>([]);
   const [materials, setMaterials] = useState<any[]>([]);
-  const [workHours, setWorkHours] = useState(0);
-  const [workMinutes, setWorkMinutes] = useState(0);
+  const [arrivalTime, setArrivalTime] = useState(new Date());
+  const [departureTime, setDepartureTime] = useState(new Date());
+  const [showArrivalDatePicker, setShowArrivalDatePicker] = useState(false);
+  const [showDepartureDatePicker, setShowDepartureDatePicker] = useState(false);
 
-  const workHoursItems = Array.from({ length: 25 }).map((_, i) => ({
-    label: `${i} h`,
-    value: i,
-  }));
-  const workMinutesItems = Array.from({ length: 60 }).map((_, i) => ({
-    label: `${i} min`,
-    value: i,
-  }));
+  const onArrivalTimeChange = (event: Event, selectedTime?: Date) => {
+    const currentTime = selectedTime || arrivalTime;
+    setShowArrivalDatePicker(false);
+    setArrivalTime(currentTime);
+  };
+
+  const onDepartureTimeChange = (event: Event, selectedTime?: Date) => {
+    const currentTime = selectedTime || departureTime;
+    setShowDepartureDatePicker(false);
+    setDepartureTime(currentTime);
+  };
 
   useEffect(() => {
     const fetchTools = async () => {
@@ -57,54 +65,60 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
   };
 
   return (
-    <View>
-      <Text>Valittu asiakas: {customer.name}</Text>
-      <Text>Valittu työmaa: {worksite.name}</Text>
+    <View style={styles.container}>
+      <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
+      <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
 
-      <Text>Työtunnit:</Text>
-      <View style={styles.pickerWrapper}>
-        <Picker
-          selectedValue={workHours}
-          onValueChange={(value) => setWorkHours(value)}
-        >
-          {workHoursItems.map((item) => (
-            <Picker.Item label={item.label} value={item.value} key={item.value.toString()} />
-          ))}
-        </Picker>
+      <View style={styles.pickerContainer}>
+        <Text style={styles.headerText}>Saapumisaika:</Text>
+        <Text style={styles.timeText}>{arrivalTime.toISOString().slice(0,10)} {arrivalTime.toTimeString().slice(0,5)}</Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => setShowArrivalDatePicker(true)}>
+          <Text style={styles.buttonText}>Valitse saapumisaika</Text>
+        </TouchableOpacity>
+        {showArrivalDatePicker && (
+          <DateTimePicker
+            value={arrivalTime}
+            mode="time"
+            display="default"
+            onChange={onArrivalTimeChange}
+          />
+        )}
       </View>
 
-      <Text>Minuutit:</Text>
-      <View style={styles.pickerWrapper}>
-        <Picker
-          selectedValue={workMinutes}
-          onValueChange={(value) => setWorkMinutes(value)}
-        >
-          {workMinutesItems.map((item) => (
-            <Picker.Item label={item.label} value={item.value} key={item.value.toString()} />
-          ))}
-        </Picker>
+      <View style={styles.pickerContainer}>
+        <Text style={styles.headerText}>Lähtöaika:</Text>
+        <Text style={styles.timeText}>{departureTime.toISOString().slice(0,10)} {departureTime.toTimeString().slice(0,5)}</Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => setShowDepartureDatePicker(true)}>
+          <Text style={styles.buttonText}>Valitse lähtöaika</Text>
+        </TouchableOpacity>
+        {showDepartureDatePicker && (
+          <DateTimePicker
+            value={departureTime}
+            mode="time"
+            display="default"
+            onChange={onDepartureTimeChange}
+          />
+        )}
       </View>
 
-      <Text>Valitse laite:</Text>
-      <View style={styles.pickerWrapper}>
+      <View style={styles.pickerContainer}>
+        <Text style={styles.headerText}>Valitse työkalu:</Text>
         <Picker
           selectedValue={selectedTool}
-          onValueChange={handleToolChange}
-        >
-          {tools.map((tool) => (
-            <Picker.Item label={tool.name} value={tool.id} key={tool.id} />
+          onValueChange={handleToolChange}>
+          {tools.map((tool, index) => (
+            <Picker.Item key={index} label={tool.name} value={tool.id} />
           ))}
         </Picker>
       </View>
 
-      <Text>Valitse materiaali:</Text>
-      <View style={styles.pickerWrapper}>
+      <View style={styles.pickerContainer}>
+        <Text style={styles.headerText}>Valitse materiaali:</Text>
         <Picker
           selectedValue={selectedMaterial}
-          onValueChange={handleMaterialChange}
-        >
-          {materials.map((material) => (
-            <Picker.Item label={material.name} value={material.id} key={material.id} />
+          onValueChange={handleMaterialChange}>
+          {materials.map((material, index) => (
+            <Picker.Item key={index} label={material.name} value={material.id} />
           ))}
         </Picker>
       </View>
@@ -113,10 +127,38 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  pickerWrapper: {
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: '#40E0D0',
+  },
+  headerText: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  timeText: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  pickerContainer: {
     borderWidth: 1,
-    borderColor: '#000',
-    marginBottom: 10,
+    borderColor: 'gray',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    marginVertical: 10,
+  },
+  buttonContainer: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'gray',
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: 'white',
   },
 });
 
