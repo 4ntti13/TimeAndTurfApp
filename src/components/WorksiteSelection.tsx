@@ -24,8 +24,12 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     const fetchCustomers = async () => {
       const db = getFirestore();
-      const querySnapshot = await getDocs(collection(db, 'customers'));
-      setCustomers(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      try {
+        const querySnapshot = await getDocs(collection(db, 'customers'));
+        setCustomers(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      } catch (error) {
+        console.error('Error fetching customers: ', error);
+      }
     };
 
     fetchCustomers();
@@ -34,21 +38,29 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     const fetchWorksites = async () => {
       const db = getFirestore();
-      const querySnapshot = await getDocs(collection(db, 'worksites'));
-      setWorksites(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      try {
+        const querySnapshot = await getDocs(collection(db, 'worksites'));
+        setWorksites(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      } catch (error) {
+        console.error('Error fetching worksites: ', error);
+      }
     };
 
     fetchWorksites();
   }, []);
 
   const handleCustomerChange = (value: any) => {
-    const selected = customers.find((customer) => customer.id === value);
-    setSelectedCustomer(selected);
+    if (value) {
+      const selected = customers.find((customer) => customer.id === value);
+      setSelectedCustomer(selected);
+    }
   };
 
   const handleWorksiteChange = (value: any) => {
-    const selected = worksites.find((worksite) => worksite.id === value);
-    setSelectedWorksite(selected);
+    if (value) {
+      const selected = worksites.find((worksite) => worksite.id === value);
+      setSelectedWorksite(selected);
+    }
   };
 
   const handleButtonPress = () => {
@@ -66,8 +78,8 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
         <Text style={styles.headerText}>Valitse asiakas ja työmaa</Text>
       </View>
       <View style={styles.pickerContainer}>
-      <Picker
-          selectedValue={selectedCustomer?.id}
+        <Picker
+          selectedValue={selectedCustomer?.id || ''}
           onValueChange={handleCustomerChange}
           style={styles.picker}
         >
@@ -77,8 +89,8 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
         </Picker>
       </View>
       <View style={styles.pickerContainer}>
-      <Picker
-          selectedValue={selectedWorksite?.id}
+        <Picker
+          selectedValue={selectedWorksite?.id || ''}
           onValueChange={handleWorksiteChange}
           style={styles.picker}
           enabled={!!selectedCustomer}
@@ -91,7 +103,7 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
         </Picker>
       </View>
       <TouchableOpacity style={styles.buttonContainer} onPress={handleButtonPress}>
-        <Text style={styles.buttonText}>Tallenna valinta</Text>
+        <Text style={styles.buttonText}>Jatka</Text>
       </TouchableOpacity>
     </View>
   );
