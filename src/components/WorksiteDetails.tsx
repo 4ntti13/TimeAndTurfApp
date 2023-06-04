@@ -1,13 +1,11 @@
 /* eslint-disable prettier/prettier */
-
-/* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 type WorksiteDetailsRouteProp = RouteProp<RootStackParamList, 'WorksiteDetails'>;
 
@@ -16,12 +14,8 @@ type Props = {
 };
 
 const WorksiteDetails: React.FC<Props> = ({ route }) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'WorksiteDetails'>>();
   const { customer, worksite } = route.params;
-
-  const [selectedTool, setSelectedTool] = useState('');
-  const [selectedMaterial, setSelectedMaterial] = useState('');
-  const [tools, setTools] = useState<any[]>([]);
-  const [materials, setMaterials] = useState<any[]>([]);
   const [arrivalTime, setArrivalTime] = useState(new Date());
   const [departureTime, setDepartureTime] = useState(new Date());
   const [showArrivalDatePicker, setShowArrivalDatePicker] = useState(false);
@@ -39,33 +33,19 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
     setDepartureTime(currentTime);
   };
 
-  useEffect(() => {
-    const fetchTools = async () => {
-      const db = getFirestore();
-      const querySnapshot = await getDocs(collection(db, 'tools'));
-      setTools(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    };
-
-    const fetchMaterials = async () => {
-      const db = getFirestore();
-      const querySnapshot = await getDocs(collection(db, 'materials'));
-      setMaterials(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    };
-
-    fetchTools();
-    fetchMaterials();
-  }, []);
-
-  const handleToolChange = (tool: any) => {
-    setSelectedTool(tool);
-  };
-
-  const handleMaterialChange = (material: any) => {
-    setSelectedMaterial(material);
+  const goToMaterialEntry = () => {
+    navigation.navigate('MaterialEntry', {
+      customer,
+      worksite,
+      arrivalTime: arrivalTime.toISOString(),
+      departureTime: departureTime.toISOString(),
+      selectedTools: [], // add this line
+      selectedMaterials: [], // add this line
+    });
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
       <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
 
@@ -101,35 +81,17 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
         )}
       </View>
 
-      <View style={styles.pickerContainer}>
-        <Text style={styles.headerText}>Valitse työkalu:</Text>
-        <Picker
-          selectedValue={selectedTool}
-          onValueChange={handleToolChange}>
-          {tools.map((tool, index) => (
-            <Picker.Item key={index} label={tool.name} value={tool.id} />
-          ))}
-        </Picker>
-      </View>
+      <TouchableOpacity style={styles.buttonContainer} onPress={goToMaterialEntry}>
+          <Text style={styles.buttonText}>Siirry materiaalin syöttöön</Text>
+      </TouchableOpacity>
 
-      <View style={styles.pickerContainer}>
-        <Text style={styles.headerText}>Valitse materiaali:</Text>
-        <Picker
-          selectedValue={selectedMaterial}
-          onValueChange={handleMaterialChange}>
-          {materials.map((material, index) => (
-            <Picker.Item key={index} label={material.name} value={material.id} />
-          ))}
-        </Picker>
-      </View>
-    </View>
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     padding: 10,
     backgroundColor: '#40E0D0',
   },
