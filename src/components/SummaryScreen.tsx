@@ -11,9 +11,21 @@ type Props = {
 };
 
 const SummaryScreen: React.FC<Props> = ({ route }) => {
-  const { selectedTools, selectedMaterials, customer, worksite } = route.params;
+  const { selectedTools, selectedMaterials, arrivalTime, departureTime, customer, worksite } = route.params;
 
   const [comments, setComments] = useState('');
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fi-FI', options);
+  };
 
   const handleSave = () => {
     // handle saving the data and comments
@@ -45,6 +57,11 @@ const SummaryScreen: React.FC<Props> = ({ route }) => {
       </View>
 
       <View style={styles.sectionContainer}>
+        <Text style={styles.subHeaderText}>Saapumisaika:   {formatDate(arrivalTime)}</Text>
+        <Text style={styles.subHeaderText}>Lähtöaika:           {formatDate(departureTime)}</Text>
+      </View>
+
+      <View style={styles.sectionContainer}>
         <Text style={styles.subHeaderText}>Kommentit:</Text>
         <TextInput
           style={styles.input}
@@ -57,10 +74,10 @@ const SummaryScreen: React.FC<Props> = ({ route }) => {
       </View>
 
       <View style={styles.sectionContainer}>
-        <Text style={styles.noteText}>Kun olet tarkistanut asettamasi työmaatiedot, paina "Tallenna". Tämä tallentaa tiedot laskutusta varten.</Text>
+        <Text style={styles.noteText}>Kun olet tarkistanut asettamasi työmaatiedot, paina "Tallenna valinnat". Tämä tallentaa tiedot laskutusta varten eikä niitä voi enää muokata.</Text>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
-          <Text style={styles.buttonText}>Tallenna työmaa</Text>
+          <Text style={styles.buttonText}>Tallenna valinnat</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

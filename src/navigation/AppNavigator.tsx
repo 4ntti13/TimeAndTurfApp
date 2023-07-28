@@ -39,6 +39,8 @@ export type RootStackParamList = {
     selectedMaterials: { name: string; quantity: string }[];
     customer: { name: string };
     worksite: { name: string };
+    arrivalTime: string;
+    departureTime: string;
   };
 };
 
