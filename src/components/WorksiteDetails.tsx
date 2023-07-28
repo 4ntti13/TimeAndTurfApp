@@ -45,9 +45,11 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
   };
 
   return (
-    <View>
-      <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
-      <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
+        <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
+      </View>
 
       <View style={styles.pickerContainer}>
         <Text style={styles.headerText}>Saapumisaika:</Text>
@@ -82,7 +84,7 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
       </View>
 
       <TouchableOpacity style={styles.buttonContainer} onPress={goToMaterialEntry}>
-          <Text style={styles.buttonText}>Siirry materiaalin syöttöön</Text>
+          <Text style={styles.buttonText}>Tallenna ja jatka</Text>
       </TouchableOpacity>
 
   </View>
@@ -92,36 +94,61 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     padding: 10,
     backgroundColor: '#40E0D0',
   },
+  titleContainer: {
+    marginBottom: 20,
+  },
   headerText: {
-    fontSize: 20,
+    fontSize: 24,
+    fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 10,
+    marginVertical: 10,
   },
   timeText: {
     fontSize: 16,
     textAlign: 'center',
   },
   pickerContainer: {
+    marginBottom: 20,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#888',
     backgroundColor: 'white',
-    borderRadius: 5,
-    marginVertical: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    padding: 10,
   },
   buttonContainer: {
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'gray',
-    borderRadius: 5,
-    marginTop: 10,
+    backgroundColor: '#444',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    marginVertical: 20,
   },
   buttonText: {
     color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
+
 
 export default WorksiteDetails;

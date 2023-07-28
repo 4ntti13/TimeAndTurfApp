@@ -3,8 +3,10 @@
 /* eslint-disable prettier/prettier */
 
 /* eslint-disable prettier/prettier */
+
+/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
@@ -28,6 +30,10 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
 
   const onProceed = () => {
     navigation.navigate('QuantityEntry', {
+      customer,
+      worksite,
+      arrivalTime,
+      departureTime,
       selectedTools,
       selectedMaterials,
       selectedToolNames: selectedTools.map(t => tools.find(tool => tool.id === t.id)?.name),
@@ -100,46 +106,126 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View>
-      <MultiSelect
-        items={tools}
-        uniqueKey="id"
-        onSelectedItemsChange={onSelectedToolsChange}
-        selectedItems={selectedTools.map(t => t.id)}
-      />
-      {selectedTools.map(tool => (
-        <View key={tool.id}>
-          <Text>{tools.find(t => t.id === tool.id)?.name}</Text>
-          <TextInput
-            keyboardType="numeric"
-            value={inputValues[tool.id]}
-            onChangeText={(text) => onInputChange(tool.id, text)}
-            onBlur={() => onBlur(tool.id, false)}
-          />
-        </View>
-      ))}
-      <MultiSelect
-        items={materials}
-        uniqueKey="id"
-        onSelectedItemsChange={onSelectedMaterialsChange}
-        selectedItems={selectedMaterials.map(m => m.id)}
-      />
-      {selectedMaterials.map(material => (
-        <View key={material.id}>
-          <Text>{materials.find(m => m.id === material.id)?.name}</Text>
-          <TextInput
-            keyboardType="numeric"
-            value={inputValues[material.id]}
-            onChangeText={(text) => onInputChange(material.id, text)}
-            onBlur={() => onBlur(material.id, true)}
-          />
-        </View>
-      ))}
-      <TouchableOpacity onPress={onProceed}>
-        <Text>Siirry valitsemaan lukumäärät</Text>
+    <View style={styles.container}>
+      <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
+      <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
+
+      <Text style={styles.subHeaderText}>Valitse työkalut/laitteet</Text>
+      <View style={styles.multiSelectContainer}>
+        <MultiSelect
+          items={tools}
+          selectText="Valitse"
+          selectedText="Valittu"
+          uniqueKey="id"
+          onSelectedItemsChange={onSelectedToolsChange}
+          selectedItems={selectedTools.map(t => t.id)}
+        />
+      </View>
+
+      <Text style={styles.subHeaderText}>Valitse materiaalit</Text>
+      <View style={styles.multiSelectContainer}>
+        <MultiSelect
+          items={materials}
+          selectText="Valitse"
+          selectedText="Valittu"
+          uniqueKey="id"
+          onSelectedItemsChange={onSelectedMaterialsChange}
+          selectedItems={selectedMaterials.map(m => m.id)}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.buttonContainer} onPress={onProceed}>
+        <Text style={styles.buttonText}>Siirry valitsemaan lukumäärät</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    padding: 20,
+    backgroundColor: '#40E0D0',
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
+    marginTop: 0,
+  },
+  multiSelectContainer: {
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: '#888',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#888',
+    borderRadius: 10,
+    backgroundColor: '#fff',
+  },
+  input: {
+    width: '30%',
+    height: 40,
+    borderColor: '#888',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingLeft: 10,
+    fontSize: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+  },
+  buttonContainer: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#444',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    marginVertical: 30,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  subHeaderText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    marginVertical: 10,
+  },
+});
+
 
 export default MaterialEntry;

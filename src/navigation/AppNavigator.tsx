@@ -10,6 +10,7 @@ import WorksiteSelection from '../components/WorksiteSelection';
 import WorksiteDetails from '../components/WorksiteDetails';
 import MaterialEntry from '../components/MaterialEntry';
 import QuantityEntry from '../components/QuantityEntry';
+import SummaryScreen from '../components/SummaryScreen';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -28,8 +29,19 @@ export type RootStackParamList = {
     selectedMaterials: { id: string; quantity: number; }[];
     selectedToolNames: string[];
     selectedMaterialNames: string[];
+    customer: { name: string };
+    worksite: { name: string };
+    arrivalTime: string;
+    departureTime: string;
+  };
+  SummaryScreen: {
+    selectedTools: { name: string; quantity: string }[];
+    selectedMaterials: { name: string; quantity: string }[];
+    customer: { name: string };
+    worksite: { name: string };
   };
 };
+
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
@@ -41,6 +53,7 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen name="WorksiteDetails" component={WorksiteDetails} />
         <Stack.Screen name="MaterialEntry" component={MaterialEntry} />
         <Stack.Screen name="QuantityEntry" component={QuantityEntry} />
+        <Stack.Screen name="SummaryScreen" component={SummaryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
