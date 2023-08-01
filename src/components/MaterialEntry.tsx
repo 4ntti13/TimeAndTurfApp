@@ -107,8 +107,8 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
-      <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
+      {/* <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
+      <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text> */}
 
       <Text style={styles.subHeaderText}>Valitse työkalut/laitteet</Text>
       <View style={styles.multiSelectContainer}>

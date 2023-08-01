@@ -74,7 +74,7 @@ const SummaryScreen: React.FC<Props> = ({ route }) => {
       </View>
 
       <View style={styles.sectionContainer}>
-        <Text style={styles.noteText}>Kun olet tarkistanut asettamasi työmaatiedot, paina "Tallenna valinnat". Tämä tallentaa tiedot laskutusta varten eikä niitä voi enää muokata.</Text>
+        <Text style={styles.noteText}>Kun olet tarkistanut asettamasi työmaatiedot, paina "Tallenna valinnat". Tämä tallentaa tiedot laskutusta varten, eikä niitä voi enää muokata.</Text>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
           <Text style={styles.buttonText}>Tallenna valinnat</Text>
