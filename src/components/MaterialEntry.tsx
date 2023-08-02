@@ -1,12 +1,6 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
-
-/* eslint-disable prettier/prettier */
-
-/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, View, FlatList, SafeAreaView } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
@@ -22,75 +16,25 @@ type Props = {
 
 const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
   const { customer, worksite, arrivalTime, departureTime } = route.params;
-  const [tools, setTools] = useState<any[]>([]);
   const [materials, setMaterials] = useState<any[]>([]);
-  const [selectedTools, setSelectedTools] = useState<{ id: string, quantity: number }[]>([]);
   const [selectedMaterials, setSelectedMaterials] = useState<{ id: string, quantity: number }[]>([]);
-  const [inputValues, setInputValues] = useState<{ [id: string]: string }>({});
 
   const onProceed = () => {
-    navigation.navigate('QuantityEntry', {
+    navigation.navigate('ToolEntry', {
       customer,
       worksite,
       arrivalTime,
       departureTime,
-      selectedTools,
       selectedMaterials,
-      selectedToolNames: selectedTools.map(t => tools.find(tool => tool.id === t.id)?.name),
-      selectedMaterialNames: selectedMaterials.map(m => materials.find(material => material.id === m.id)?.name),
-    });
-  };
 
-  const onSelectedToolsChange = (newSelectedTools: string[]) => {
-    setSelectedTools(newSelectedTools.map(id => ({ id, quantity: 0 })));
-    newSelectedTools.forEach(id => {
-      if (!inputValues[id]) {
-        setInputValues(oldValues => ({ ...oldValues, [id]: '0' }));
-      }
     });
   };
 
   const onSelectedMaterialsChange = (newSelectedMaterials: string[]) => {
     setSelectedMaterials(newSelectedMaterials.map(id => ({ id, quantity: 0 })));
-    newSelectedMaterials.forEach(id => {
-      if (!inputValues[id]) {
-        setInputValues(oldValues => ({ ...oldValues, [id]: '0' }));
-      }
-    });
-  };
-
-  const onInputChange = (id: string, text: string) => {
-    setInputValues(oldValues => ({ ...oldValues, [id]: text }));
-  };
-
-  const onBlur = (id: string, isMaterial: boolean) => {
-    const quantity = Number(inputValues[id]) || 0;
-    if (isMaterial) {
-      setSelectedMaterials(oldMaterials =>
-        oldMaterials.map(m =>
-          m.id === id ? { ...m, quantity } : m
-        )
-      );
-    } else {
-      setSelectedTools(oldTools =>
-        oldTools.map(t =>
-          t.id === id ? { ...t, quantity } : t
-        )
-      );
-    }
   };
 
   useEffect(() => {
-    const fetchTools = async () => {
-      try {
-        const db = getFirestore();
-        const querySnapshot = await getDocs(collection(db, 'tools'));
-        setTools(querySnapshot.docs.map((doc) => ({ id: doc.id, name: doc.data().name })));
-      } catch (error) {
-        console.error('Error fetching tools: ', error);
-      }
-    };
-
     const fetchMaterials = async () => {
       try {
         const db = getFirestore();
@@ -101,43 +45,37 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
       }
     };
 
-    fetchTools();
     fetchMaterials();
   }, []);
 
   return (
-    <View style={styles.container}>
-      {/* <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
-      <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text> */}
-
-      <Text style={styles.subHeaderText}>Valitse työkalut/laitteet</Text>
-      <View style={styles.multiSelectContainer}>
-        <MultiSelect
-          items={tools}
-          selectText="Valitse"
-          selectedText="Valittu"
-          uniqueKey="id"
-          onSelectedItemsChange={onSelectedToolsChange}
-          selectedItems={selectedTools.map(t => t.id)}
-        />
-      </View>
-
-      <Text style={styles.subHeaderText}>Valitse materiaalit</Text>
-      <View style={styles.multiSelectContainer}>
-        <MultiSelect
-          items={materials}
-          selectText="Valitse"
-          selectedText="Valittu"
-          uniqueKey="id"
-          onSelectedItemsChange={onSelectedMaterialsChange}
-          selectedItems={selectedMaterials.map(m => m.id)}
-        />
-      </View>
-
-      <TouchableOpacity style={styles.buttonContainer} onPress={onProceed}>
-        <Text style={styles.buttonText}>Siirry valitsemaan lukumäärät</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={materials}
+        keyExtractor={item => item.id}
+        renderItem={() => null} // Lisätty tyhjä renderItem-funktio
+        ListHeaderComponent={
+          <View>
+            <Text style={styles.subHeaderText}>Valitse materiaalit</Text>
+            <View style={styles.multiSelectContainer}>
+              <MultiSelect
+                items={materials}
+                selectText="Valitse"
+                selectedText="Valittu"
+                uniqueKey="id"
+                onSelectedItemsChange={onSelectedMaterialsChange}
+                selectedItems={selectedMaterials.map(m => m.id)}
+              />
+            </View>
+          </View>
+        }
+        ListFooterComponent={
+          <TouchableOpacity style={styles.buttonContainer} onPress={onProceed}>
+            <Text style={styles.buttonText}>Siirry valitsemaan työkalut</Text>
+          </TouchableOpacity>
+        }
+      />
+    </SafeAreaView>
   );
 };
 
