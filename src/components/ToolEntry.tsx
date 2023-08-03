@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
@@ -66,23 +66,33 @@ const ToolEntry: React.FC<Props> = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.subHeaderText}>Valitse työkalut/laitteet</Text>
-      <View style={styles.multiSelectContainer}>
-        <MultiSelect
-          items={tools}
-          selectText="Valitse"
-          selectedText="Valittu"
-          uniqueKey="id"
-          onSelectedItemsChange={onSelectedToolsChange}
-          selectedItems={selectedTools.map(t => t.id)}
-        />
-      </View>
-
-      <TouchableOpacity style={styles.buttonContainer} onPress={onProceed}>
-        <Text style={styles.buttonText}>Siirry valitsemaan määrät</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={tools}
+        keyExtractor={item => item.id}
+        renderItem={() => null} // Lisätty tyhjä renderItem-funktio
+        ListHeaderComponent={
+          <View>
+            <Text style={styles.subHeaderText}>Valitse työkalut/laitteet</Text>
+            <View style={styles.multiSelectContainer}>
+              <MultiSelect
+                items={tools}
+                selectText="Valitse"
+                selectedText="Valittu"
+                uniqueKey="id"
+                onSelectedItemsChange={onSelectedToolsChange}
+                selectedItems={selectedTools.map(t => t.id)}
+              />
+            </View>
+          </View>
+        }
+        ListFooterComponent={
+          <TouchableOpacity style={styles.buttonContainer} onPress={onProceed}>
+            <Text style={styles.buttonText}>Siirry valitsemaan määrät</Text>
+          </TouchableOpacity>
+        }
+      />
+    </SafeAreaView>
   );
 };
 
