@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import { AuthContext } from '../contexts/AuthContext';
 
 type SummaryScreenRouteProp = RouteProp<RootStackParamList, 'SummaryScreen'>;
 
@@ -12,7 +13,7 @@ type Props = {
 
 const SummaryScreen: React.FC<Props> = ({ route }) => {
   const { selectedTools, selectedMaterials, arrivalTime, departureTime, customer, worksite } = route.params;
-
+  const { user } = useContext(AuthContext);
   const [comments, setComments] = useState('');
 
   const formatDate = (dateString: string) => {
@@ -34,6 +35,7 @@ const SummaryScreen: React.FC<Props> = ({ route }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.titleContainer}>
+        {user && <Text style={styles.headerText}>Kirjautunut käyttäjä: {user.email}</Text>}
         <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
         <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
       </View>

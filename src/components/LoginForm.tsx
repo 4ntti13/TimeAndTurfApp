@@ -3,11 +3,12 @@
 
 // src/components/LoginForm.tsx
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react'; // import useContext
 import { Image, TextInput, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { loginUser } from '../services/firebase';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import { AuthContext } from '../contexts/AuthContext'; // import AuthContext
 
 type LoginFormNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,6 +20,7 @@ type Props = {
 };
 
 const LoginForm: React.FC<Props> = ({ navigation }) => {
+  const { setUser } = useContext(AuthContext); // get setUser function from AuthContext
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -27,9 +29,8 @@ const LoginForm: React.FC<Props> = ({ navigation }) => {
     try {
       const userCredential = await loginUser(email, password);
       if (userCredential) {
-
+        setUser({ email }); // set user email in AuthContext
         navigation.navigate('WorksiteSelection');
-
       } else {
         setErrorMessage('Kirjautuminen epäonnistui, tunnus tai salasana väärin!');
       }
