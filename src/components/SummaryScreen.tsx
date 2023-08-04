@@ -5,16 +5,19 @@ import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { AuthContext } from '../contexts/AuthContext';
 import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { getAuth, signOut } from '@firebase/auth';
 
 type SummaryScreenRouteProp = RouteProp<RootStackParamList, 'SummaryScreen'>;
 
 type Props = {
   route: SummaryScreenRouteProp;
+  navigation: StackNavigationProp<RootStackParamList, 'SummaryScreen'>;
 };
 
-const SummaryScreen: React.FC<Props> = ({ route }) => {
+const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
   const { selectedTools, selectedMaterials, arrivalTime, departureTime, customer, worksite } = route.params;
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [comments, setComments] = useState('');
 
   const formatDate = (dateString: string) => {
@@ -45,6 +48,16 @@ const SummaryScreen: React.FC<Props> = ({ route }) => {
     try {
       await addDoc(collection(db, 'summaries'), summaryData);
       console.log('Tiedot tallennettu onnistuneesti!');
+
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        console.log('User signed out successfully');
+        setUser(null);
+        navigation.navigate('Login');
+      }).catch((error) => {
+        console.log('Error signing out: ', error);
+      });
+
     } catch (error) {
       console.error('Tietoja ei voitu tallentaa: ', error);
     }
@@ -94,10 +107,10 @@ const SummaryScreen: React.FC<Props> = ({ route }) => {
       </View>
 
       <View style={styles.sectionContainer}>
-        <Text style={styles.noteText}>Kun olet tarkistanut asettamasi työmaatiedot, paina "Tallenna valinnat". Tämä tallentaa tiedot laskutusta varten, eikä niitä voi enää muokata.</Text>
+        <Text style={styles.noteText}>Kun olet VARMASTI tarkistanut asettamasi työmaatiedot, paina "Tallenna valinnat ja lopeta". Tämä tallentaa tiedot laskutusta varten, eikä niitä voi enää muokata.</Text>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
-          <Text style={styles.buttonText}>Tallenna valinnat</Text>
+          <Text style={styles.buttonText}>Tallenna valinnat ja lopeta</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
