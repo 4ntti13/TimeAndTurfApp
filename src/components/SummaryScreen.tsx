@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { AuthContext } from '../contexts/AuthContext';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 
 type SummaryScreenRouteProp = RouteProp<RootStackParamList, 'SummaryScreen'>;
 
@@ -28,8 +29,25 @@ const SummaryScreen: React.FC<Props> = ({ route }) => {
     return date.toLocaleDateString('fi-FI', options);
   };
 
-  const handleSave = () => {
-    // handle saving the data and comments
+  const handleSave = async () => {
+    const db = getFirestore();
+    const summaryData = {
+      user: user?.email,
+      customer: customer.name,
+      worksite: worksite.name,
+      selectedTools: selectedTools,
+      selectedMaterials: selectedMaterials,
+      arrivalTime: arrivalTime,
+      departureTime: departureTime,
+      comments: comments,
+    };
+
+    try {
+      await addDoc(collection(db, 'summaries'), summaryData);
+      console.log('Tiedot tallennettu onnistuneesti!');
+    } catch (error) {
+      console.error('Tietoja ei voitu tallentaa: ', error);
+    }
   };
 
   return (

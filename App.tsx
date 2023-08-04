@@ -3,7 +3,7 @@
 
 import React from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
-import { AuthProvider } from './src/contexts/AuthContext'; // Varmista, että polku viittaa oikeaan sijaintiin
+import { AuthProvider } from './src/contexts/AuthContext';
 
 const App = () => {
   return (
