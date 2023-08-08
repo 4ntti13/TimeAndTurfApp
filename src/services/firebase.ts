@@ -1,11 +1,9 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import firebase from '@firebase/app';
-import { getAuth, signInWithEmailAndPassword  } from 'firebase/auth';
 
+
+// Import the functions you need from the SDKs
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyDQsE9hCb1eygsB6xJsP0q5j8UdkRKi7zQ',
@@ -17,19 +15,17 @@ const firebaseConfig = {
     measurementId: 'G-3CFV8BVTM4',
 };
 
-const app = initializeApp(firebaseConfig);
-
 // Initialize Firebase
+export const app = initializeApp(firebaseConfig);
 
-  export const loginUser = async (email: string, password: string) => {
+export const loginUser = async (email: string, password: string) => {
     const auth = getAuth();
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         return userCredential;
     } catch (error) {
         console.error(error);
-
         return null;
     }
-  };
+};
 

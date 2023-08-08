@@ -9,6 +9,9 @@ import { loginUser } from '../services/firebase';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { AuthContext } from '../contexts/AuthContext'; // import AuthContext
+import { doc, getDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
+import { app } from '../services/firebase';
 
 type LoginFormNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -29,10 +32,28 @@ const LoginForm: React.FC<Props> = ({ navigation }) => {
     try {
       const userCredential = await loginUser(email, password);
       if (userCredential) {
-        setUser({ email }); // set user email in AuthContext
-        navigation.navigate('WorksiteSelection');
-      } else {
-        setErrorMessage('Kirjautuminen epäonnistui, tunnus tai salasana väärin!');
+        const db = getFirestore(app);
+        const userDocRef = doc(db, 'users', email);
+        const userDoc = await getDoc(userDocRef);
+
+        // Tarkista, jos dokumentti on olemassa
+        // @ts-ignore
+        if (userDoc.exists) {
+          const userData = userDoc.data();
+
+          setUser({ email }); // set user email in AuthContext
+
+          // Tarkista, jos käyttäjän rooli on 'admin'
+          if (userData?.role === 'admin') {
+            console.log('Käyttäjä on pääkäyttäjä!');
+            navigation.navigate('AdminPage'); // ohjaa pääkäyttäjä AdminPage-näkymään
+          } else {
+            console.log('Käyttäjä on normaali käyttäjä');
+            navigation.navigate('WorksiteSelection'); // ohjaa muut käyttäjät WorksiteSelection-näkymään
+          }
+        } else {
+          setErrorMessage('Kirjautuminen epäonnistui, tunnus tai salasana väärin!');
+        }
       }
     } catch (error) {
       setErrorMessage((error as any).message);
