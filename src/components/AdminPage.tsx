@@ -32,6 +32,18 @@ const AdminPage: React.FC<Props> = ({navigation}) => {
 
       <TouchableOpacity
         style={styles.button}
+        onPress={() => navigation.navigate('AddTool')}>
+        <Text style={styles.buttonText}>Lisää uusi laite/työkalu</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('AddMaterial')}>
+        <Text style={styles.buttonText}>Lisää uusi materiaali</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => navigation.navigate('WorksiteSelection')}>
         <Text style={styles.buttonText}>Siirry työmaavalintaan</Text>
       </TouchableOpacity>
