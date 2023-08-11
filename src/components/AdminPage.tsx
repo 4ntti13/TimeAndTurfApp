@@ -48,6 +48,12 @@ const AdminPage: React.FC<Props> = ({navigation}) => {
         <Text style={styles.buttonText}>Siirry työmaavalintaan</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('ReportScreen')}>
+        <Text style={styles.buttonText}>Hae raportti</Text>
+      </TouchableOpacity>
+
 
     </View>
   );

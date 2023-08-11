@@ -17,6 +17,7 @@ import ToolEntry from '../components/ToolEntry';
 import QuantityEntry from '../components/QuantityEntry';
 import SummaryScreen from '../components/SummaryScreen';
 import AddMaterial from '../components/AddMaterial';
+import ReportScreen from '../components/ReportScreen';
 
 
 export type RootStackParamList = {
@@ -26,6 +27,7 @@ export type RootStackParamList = {
   AddWorksite: undefined;
   AddTool: undefined;
   AddMaterial: undefined;
+  ReportScreen: undefined;
   WorksiteSelection: undefined;
   WorksiteDetails: { customer: any; worksite: any; };
   MaterialEntry: {
@@ -75,6 +77,7 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen name="AddWorksite" component={AddWorksite} />
         <Stack.Screen name="AddTool" component={AddTool} />
         <Stack.Screen name="AddMaterial" component={AddMaterial} />
+        <Stack.Screen name="ReportScreen" component={ReportScreen} />
         <Stack.Screen name="WorksiteSelection" component={WorksiteSelection} />
         <Stack.Screen name="WorksiteDetails" component={WorksiteDetails} />
         <Stack.Screen name="MaterialEntry" component={MaterialEntry} />
