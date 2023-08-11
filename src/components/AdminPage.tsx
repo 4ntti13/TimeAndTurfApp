@@ -24,11 +24,11 @@ const AdminPage: React.FC<Props> = ({navigation}) => {
         <Text style={styles.buttonText}>Lisää Uusi Asiakas</Text>
       </TouchableOpacity>
 
-{/*       <TouchableOpacity
+      <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('AddWorksite')}>
         <Text style={styles.buttonText}>Lisää Uusi Työmaa</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}

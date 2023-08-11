@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginForm from '../components/LoginForm';
 import AdminPage from '../components/AdminPage';
 import AddCustomer from '../components/AddCustomer';
+import AddWorksite from '../components/AddWorksite';
 import WorksiteSelection from '../components/WorksiteSelection';
 import WorksiteDetails from '../components/WorksiteDetails';
 import MaterialEntry from '../components/MaterialEntry';
@@ -20,6 +21,7 @@ export type RootStackParamList = {
   Login: undefined;
   AdminPage: undefined;
   AddCustomer: undefined;
+  AddWorksite: undefined;
   WorksiteSelection: undefined;
   WorksiteDetails: { customer: any; worksite: any; };
   MaterialEntry: {
@@ -66,6 +68,7 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen name="Login" component={LoginForm} />
         <Stack.Screen name="AdminPage" component={AdminPage} />
         <Stack.Screen name="AddCustomer" component={AddCustomer} />
+        <Stack.Screen name="AddWorksite" component={AddWorksite} />
         <Stack.Screen name="WorksiteSelection" component={WorksiteSelection} />
         <Stack.Screen name="WorksiteDetails" component={WorksiteDetails} />
         <Stack.Screen name="MaterialEntry" component={MaterialEntry} />
