@@ -20,11 +20,23 @@ const AdminPage: React.FC<Props> = ({navigation}) => {
 
       <TouchableOpacity
         style={styles.button}
+        onPress={() => navigation.navigate('AddCustomer')}>
+        <Text style={styles.buttonText}>Lisää Uusi Asiakas</Text>
+      </TouchableOpacity>
+
+{/*       <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('AddWorksite')}>
+        <Text style={styles.buttonText}>Lisää Uusi Työmaa</Text>
+      </TouchableOpacity> */}
+
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => navigation.navigate('WorksiteSelection')}>
         <Text style={styles.buttonText}>Siirry työmaavalintaan</Text>
       </TouchableOpacity>
 
-      {/* Voit lisätä lisää toimintoja tähän myöhemmin */}
+
     </View>
   );
 };

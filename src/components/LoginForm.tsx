@@ -33,23 +33,24 @@ const LoginForm: React.FC<Props> = ({ navigation }) => {
       const userCredential = await loginUser(email, password);
       if (userCredential) {
         const db = getFirestore(app);
-        const userDocRef = doc(db, 'users', email);
+        const uid = userCredential.user.uid;
+        const userDocRef = doc(db, 'users', uid);
         const userDoc = await getDoc(userDocRef);
 
-        // Tarkista, jos dokumentti on olemassa
         // @ts-ignore
         if (userDoc.exists) {
           const userData = userDoc.data();
 
           setUser({ email }); // set user email in AuthContext
 
-          // Tarkista, jos käyttäjän rooli on 'admin'
+
+          console.log(userData);
           if (userData?.role === 'admin') {
             console.log('Käyttäjä on pääkäyttäjä!');
-            navigation.navigate('AdminPage'); // ohjaa pääkäyttäjä AdminPage-näkymään
+            navigation.navigate('AdminPage');
           } else {
             console.log('Käyttäjä on normaali käyttäjä');
-            navigation.navigate('WorksiteSelection'); // ohjaa muut käyttäjät WorksiteSelection-näkymään
+            navigation.navigate('WorksiteSelection');
           }
         } else {
           setErrorMessage('Kirjautuminen epäonnistui, tunnus tai salasana väärin!');
