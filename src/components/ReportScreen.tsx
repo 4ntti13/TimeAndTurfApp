@@ -1,9 +1,20 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
+// ReportScreen:
+
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { RootStackParamList } from '../navigation/AppNavigator';
+import { RouteProp } from '@react-navigation/native';
 
-const ReportScreen: React.FC = () => {
+type ReportScreenRouteProp = RouteProp<RootStackParamList, 'ReportScreen'>;
+type Props = {
+  route: ReportScreenRouteProp;
+}
+
+const ReportScreen: React.FC<Props> = ( {route} ) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
@@ -13,6 +24,10 @@ const ReportScreen: React.FC = () => {
   const formatDate = (date: Date) => {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   };
+
+
+
+  const { selectedUsers = []} = route.params;
 
   return (
     <View style={styles.container}>

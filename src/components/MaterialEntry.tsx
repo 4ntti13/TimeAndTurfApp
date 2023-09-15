@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+// MaterialEntry.tsx:
 import React, { useEffect, useState } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, FlatList, SafeAreaView } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
@@ -41,7 +42,7 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
         const querySnapshot = await getDocs(collection(db, 'materials'));
         setMaterials(querySnapshot.docs.map((doc) => ({ id: doc.id, name: doc.data().name })));
       } catch (error) {
-        console.error('Error fetching materials: ', error);
+        console.error('Materiaaleja ei voitu hakea: ', error);
       }
     };
 

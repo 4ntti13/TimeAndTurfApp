@@ -574,6 +574,7 @@
     <item name="accessibility_links" type="id"/>
     <item name="accessibility_role" type="id"/>
     <item name="accessibility_state" type="id"/>
+    <item name="accessibility_state_expanded" type="id"/>
     <item name="accessibility_value" type="id"/>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>

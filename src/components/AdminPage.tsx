@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+// AdminPage.tsx:
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -16,7 +17,7 @@ type Props = {
 const AdminPage: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Admin Paneeli</Text>
+      <Text style={styles.title}>Pääkäyttäjä - Hallinta</Text>
 
       <TouchableOpacity
         style={styles.button}
@@ -50,8 +51,14 @@ const AdminPage: React.FC<Props> = ({navigation}) => {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('ReportScreen')}>
+        onPress={() => navigation.navigate('UserSelectionScreen')}>
         <Text style={styles.buttonText}>Hae raportti</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('AddUser')}>
+        <Text style={styles.buttonText}>Lisää Uusi Käyttäjä</Text>
       </TouchableOpacity>
 
 

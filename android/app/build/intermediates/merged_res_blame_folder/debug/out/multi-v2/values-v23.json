@@ -4,7 +4,7 @@
             "outputFile": "com.timeandturfapp-mergeDebugResources-3:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\antti\\.gradle\\caches\\transforms-3\\2fd73835c5f88322cd819e21091ff8cf\\transformed\\material-1.1.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\antti\\.gradle\\caches\\transforms-3\\c20482aa656a8f35781a177390b7232d\\transformed\\material-1.1.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,6",
                         "startColumns": "4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\antti\\.gradle\\caches\\transforms-3\\2869819762abc67901fd58a9b84e0d6d\\transformed\\appcompat-1.4.1\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\antti\\.gradle\\caches\\transforms-3\\0719b87c056b907d84ca9a0c40cc4291\\transformed\\appcompat-1.4.1\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -42,7 +42,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\antti\\.gradle\\caches\\transforms-3\\de52fc3fb23578f02940ffac44877ce3\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\antti\\.gradle\\caches\\transforms-3\\7ac1297a65d7e60cab9847fc28b2b130\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

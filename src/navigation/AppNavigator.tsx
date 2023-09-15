@@ -18,16 +18,19 @@ import QuantityEntry from '../components/QuantityEntry';
 import SummaryScreen from '../components/SummaryScreen';
 import AddMaterial from '../components/AddMaterial';
 import ReportScreen from '../components/ReportScreen';
+import UserSelectionScreen from '../components/UserSelectionScreen';
+import AddUser from '../components/AddUser';
 
 
 export type RootStackParamList = {
   Login: undefined;
   AdminPage: undefined;
+  AddUser: undefined;
   AddCustomer: undefined;
   AddWorksite: undefined;
   AddTool: undefined;
   AddMaterial: undefined;
-  ReportScreen: undefined;
+  ReportScreen: { selectedUsers: string[] };
   WorksiteSelection: undefined;
   WorksiteDetails: { customer: any; worksite: any; };
   MaterialEntry: {
@@ -63,6 +66,7 @@ export type RootStackParamList = {
     arrivalTime: string;
     departureTime: string;
   };
+  UserSelectionScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -73,11 +77,13 @@ const AppNavigator: React.FC = () => {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginForm} />
         <Stack.Screen name="AdminPage" component={AdminPage} />
+        <Stack.Screen name="AddUser" component={AddUser} />
         <Stack.Screen name="AddCustomer" component={AddCustomer} />
         <Stack.Screen name="AddWorksite" component={AddWorksite} />
         <Stack.Screen name="AddTool" component={AddTool} />
         <Stack.Screen name="AddMaterial" component={AddMaterial} />
         <Stack.Screen name="ReportScreen" component={ReportScreen} />
+        <Stack.Screen name="UserSelectionScreen" component={UserSelectionScreen} />
         <Stack.Screen name="WorksiteSelection" component={WorksiteSelection} />
         <Stack.Screen name="WorksiteDetails" component={WorksiteDetails} />
         <Stack.Screen name="MaterialEntry" component={MaterialEntry} />

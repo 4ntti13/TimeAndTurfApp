@@ -15,8 +15,8 @@
 12-->C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:3:5-67
 12-->C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:3:22-64
 13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-13-->[com.facebook.flipper:flipper:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\1de5dee59d1627955e42d3d6205f726e\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:5-76
-13-->[com.facebook.flipper:flipper:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\1de5dee59d1627955e42d3d6205f726e\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:22-73
+13-->[com.facebook.flipper:flipper:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\7791fe77b8ab9730d0e25ce55c6aa090\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:5-76
+13-->[com.facebook.flipper:flipper:0.125.0] C:\Users\antti\.gradle\caches\transforms-3\7791fe77b8ab9730d0e25ce55c6aa090\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:22-73
 14
 15    <application
 15-->C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:5:5-24:19
@@ -25,7 +25,7 @@
 17        android:allowBackup="false"
 17-->C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:10:7-34
 18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-18-->[androidx.core:core:1.7.0] C:\Users\antti\.gradle\caches\transforms-3\3994986e4b6f29f228dfe8fb9122f0d7\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+18-->[androidx.core:core:1.7.0] C:\Users\antti\.gradle\caches\transforms-3\c05df83dbc847297b7ccad2bb18337e0\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
 19        android:debuggable="true"
 20        android:icon="@mipmap/ic_launcher"
 20-->C:\Oppari\TimeAndTurfApp\android\app\src\main\AndroidManifest.xml:8:7-41
@@ -69,27 +69,34 @@
 39            </intent-filter>
 40        </activity>
 41
-42        <provider
-42-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\c1cd3487ee93faa69a46c921c06f102e\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
-43            android:name="androidx.startup.InitializationProvider"
-43-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\c1cd3487ee93faa69a46c921c06f102e\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
-44            android:authorities="com.timeandturfapp.androidx-startup"
-44-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\c1cd3487ee93faa69a46c921c06f102e\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
-45            android:exported="false" >
-45-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\c1cd3487ee93faa69a46c921c06f102e\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
-46            <meta-data
-46-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\c1cd3487ee93faa69a46c921c06f102e\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
-47                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-47-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\c1cd3487ee93faa69a46c921c06f102e\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
-48                android:value="androidx.startup" />
-48-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\c1cd3487ee93faa69a46c921c06f102e\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
-49            <meta-data
-49-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\antti\.gradle\caches\transforms-3\afe3a0cc82c76a7c864d2efd8324d92e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
-50                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-50-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\antti\.gradle\caches\transforms-3\afe3a0cc82c76a7c864d2efd8324d92e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
-51                android:value="androidx.startup" />
-51-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\antti\.gradle\caches\transforms-3\afe3a0cc82c76a7c864d2efd8324d92e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
-52        </provider>
-53    </application>
-54
-55</manifest>
+42        <meta-data
+42-->[com.facebook.soloader:soloader:0.10.5] C:\Users\antti\.gradle\caches\transforms-3\06e68ce31cc2ab4404357ee28381dd8e\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:12:9-14:37
+43            android:name="com.facebook.soloader.enabled"
+43-->[com.facebook.soloader:soloader:0.10.5] C:\Users\antti\.gradle\caches\transforms-3\06e68ce31cc2ab4404357ee28381dd8e\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:13:13-57
+44            android:value="false" />
+44-->[com.facebook.soloader:soloader:0.10.5] C:\Users\antti\.gradle\caches\transforms-3\06e68ce31cc2ab4404357ee28381dd8e\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:14:13-34
+45
+46        <provider
+46-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\f1880cf4497a0a81e315b120458930c1\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+47            android:name="androidx.startup.InitializationProvider"
+47-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\f1880cf4497a0a81e315b120458930c1\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+48            android:authorities="com.timeandturfapp.androidx-startup"
+48-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\f1880cf4497a0a81e315b120458930c1\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+49            android:exported="false" >
+49-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\f1880cf4497a0a81e315b120458930c1\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+50            <meta-data
+50-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\f1880cf4497a0a81e315b120458930c1\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+51                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+51-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\f1880cf4497a0a81e315b120458930c1\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+52                android:value="androidx.startup" />
+52-->[androidx.emoji2:emoji2:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\f1880cf4497a0a81e315b120458930c1\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+53            <meta-data
+53-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\antti\.gradle\caches\transforms-3\d734cd817a6eba2dc56ecab0ed4b46f1\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+54                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+54-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\antti\.gradle\caches\transforms-3\d734cd817a6eba2dc56ecab0ed4b46f1\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+55                android:value="androidx.startup" />
+55-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\antti\.gradle\caches\transforms-3\d734cd817a6eba2dc56ecab0ed4b46f1\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+56        </provider>
+57    </application>
+58
+59</manifest>
