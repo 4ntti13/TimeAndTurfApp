@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { Picker } from '@react-native-picker/picker';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
+import firestore from '@react-native-firebase/firestore'; // <-- Päivitetty import
 
 type WorksiteSelectionNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -23,9 +23,8 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     const fetchCustomers = async () => {
-      const db = getFirestore();
       try {
-        const querySnapshot = await getDocs(collection(db, 'customers'));
+        const querySnapshot = await firestore().collection('customers').get();
         setCustomers(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       } catch (error) {
         console.error('Error fetching customers: ', error);
@@ -37,9 +36,8 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     const fetchWorksites = async () => {
-      const db = getFirestore();
       try {
-        const querySnapshot = await getDocs(collection(db, 'worksites'));
+        const querySnapshot = await firestore().collection('worksites').get();
         setWorksites(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       } catch (error) {
         console.error('Error fetching worksites: ', error);

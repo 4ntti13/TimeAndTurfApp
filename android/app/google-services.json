@@ -1,0 +1,39 @@
+{
+    "project_info": {
+      "project_number": "1091743621537",
+      "project_id": "timeandturfapp",
+      "storage_bucket": "timeandturfapp.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:1091743621537:android:4d1720a0a9aa6f582f6be0",
+          "android_client_info": {
+            "package_name": "com.timeandturfapp"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "1091743621537-mmpglmqevuvuhc3cjt0b4akpgkncn1km.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyDicjBnjtOPRPoUvYcGx17wct9ZaIflwgs"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "1091743621537-mmpglmqevuvuhc3cjt0b4akpgkncn1km.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }

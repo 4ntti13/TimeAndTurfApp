@@ -5,7 +5,7 @@ import { Text, StyleSheet, TouchableOpacity, View, FlatList, SafeAreaView } from
 import MultiSelect from 'react-native-multiple-select';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import firestore from '@react-native-firebase/firestore';  // <-- Updated
 
 type MaterialEntryRouteProp = RouteProp<RootStackParamList, 'MaterialEntry'>;
 type MaterialEntryNavigationProp = NavigationProp<RootStackParamList, 'MaterialEntry'>;
@@ -27,7 +27,6 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
       arrivalTime,
       departureTime,
       selectedMaterials,
-
     });
   };
 
@@ -38,8 +37,7 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
-        const db = getFirestore();
-        const querySnapshot = await getDocs(collection(db, 'materials'));
+        const querySnapshot = await firestore().collection('materials').get();
         setMaterials(querySnapshot.docs.map((doc) => ({ id: doc.id, name: doc.data().name })));
       } catch (error) {
         console.error('Materiaaleja ei voitu hakea: ', error);

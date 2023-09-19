@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -21,13 +21,13 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
   const [showArrivalDatePicker, setShowArrivalDatePicker] = useState(false);
   const [showDepartureDatePicker, setShowDepartureDatePicker] = useState(false);
 
-  const onArrivalTimeChange = (event: Event, selectedTime?: Date) => {
+  const onArrivalTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
     const currentTime = selectedTime || arrivalTime;
     setShowArrivalDatePicker(false);
     setArrivalTime(currentTime);
   };
 
-  const onDepartureTimeChange = (event: Event, selectedTime?: Date) => {
+  const onDepartureTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
     const currentTime = selectedTime || departureTime;
     setShowDepartureDatePicker(false);
     setDepartureTime(currentTime);

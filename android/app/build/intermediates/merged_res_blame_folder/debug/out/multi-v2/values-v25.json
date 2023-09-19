@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.timeandturfapp-mergeDebugResources-3:/values-v25/values-v25.xml",
+            "outputFile": "com.timeandturfapp-mergeDebugResources-4:/values-v25/values-v25.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\antti\\.gradle\\caches\\transforms-3\\0719b87c056b907d84ca9a0c40cc4291\\transformed\\appcompat-1.4.1\\res\\values-v25\\values-v25.xml",
+                    "source": "C:\\Users\\antti\\.gradle\\caches\\transforms-3\\1b4d19d8ac0ad66f9610e5e795a45a62\\transformed\\appcompat-1.4.1\\res\\values-v25\\values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",

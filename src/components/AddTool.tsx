@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable prettier/prettier */
-/* eslint-disable prettier/prettier */
+// AddTool.tsx:
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import firestore from '@react-native-firebase/firestore';  // Päivitetty import
 
 declare let alert: (message?: any) => void;
 
@@ -12,9 +11,8 @@ const AddTool: React.FC = () => {
   const [toolName, setToolName] = useState('');
 
   const handleAddTool = async () => {
-    const db = getFirestore();
     try {
-      await addDoc(collection(db, 'tools'), { name: toolName });
+      await firestore().collection('tools').add({ name: toolName });
       alert('Työkalu lisätty onnistuneesti!');
     } catch (error) {
       console.error('Työkalua ei voitu lisätä!: ', error);

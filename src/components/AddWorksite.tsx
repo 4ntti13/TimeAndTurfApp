@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
-
-/* eslint-disable prettier/prettier */
+// AddWorksite.tsx:
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import { Picker } from '@react-native-picker/picker';
 
 declare let alert: (message?: any) => void;
@@ -16,9 +15,7 @@ const AddWorksite: React.FC = () => {
 
   useEffect(() => {
     const fetchCustomers = async () => {
-      const db = getFirestore();
-      const customerCollection = collection(db, 'customers');
-      const customerSnapshot = await getDocs(customerCollection);
+      const customerSnapshot = await firestore().collection('customers').get();
       const customerList = customerSnapshot.docs.map(doc => {
         return {
           ...doc.data(),
@@ -42,11 +39,8 @@ const AddWorksite: React.FC = () => {
       return;
     }
 
-    const db = getFirestore();
-    const worksitesCollection = collection(db, 'worksites');
-
     try {
-      await addDoc(worksitesCollection, {
+      await firestore().collection('worksites').add({
         name: worksiteName,
         customerId: selectedCustomer.id,
         customerName: selectedCustomer.name, // Lisätään asiakkaan nimi

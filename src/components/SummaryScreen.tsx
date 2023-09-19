@@ -6,9 +6,9 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { AuthContext } from '../contexts/AuthContext';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import firestore from '@react-native-firebase/firestore'; // Updated import
 import { StackNavigationProp } from '@react-navigation/stack';
-import { getAuth, signOut } from '@firebase/auth';
+import auth from '@react-native-firebase/auth'; // Auth-moduulin tuonti
 
 type SummaryScreenRouteProp = RouteProp<RootStackParamList, 'SummaryScreen'>;
 
@@ -35,7 +35,6 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const handleSave = async () => {
-    const db = getFirestore();
     const summaryData = {
       user: user?.email,
       customer: customer.name,
@@ -48,11 +47,10 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
     };
 
     try {
-      await addDoc(collection(db, 'summaries'), summaryData);
+      await firestore().collection('summaries').add(summaryData);
       console.log('Tiedot tallennettu onnistuneesti!');
 
-      const auth = getAuth();
-      signOut(auth).then(() => {
+      auth().signOut().then(() => {  // Päivitetty auth().signOut() -muotoon
         console.log('User signed out successfully');
         setUser(null);
         navigation.navigate('Login');
@@ -64,6 +62,7 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
       console.error('Tietoja ei voitu tallentaa: ', error);
     }
   };
+
 
   return (
     <ScrollView style={styles.container}>

@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // UserSelectionScreen.tsx:
 import React, { useEffect, useState } from 'react';
@@ -7,7 +6,7 @@ import { Text, StyleSheet, TouchableOpacity, View, FlatList, SafeAreaView } from
 import MultiSelect from 'react-native-multiple-select';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 
 type UserSelectionScreenRoutePorp = RouteProp<RootStackParamList, 'UserSelectionScreen'>;
@@ -21,12 +20,10 @@ type Props = {
 const UserSelectionScreen: React.FC<Props> = ({ route, navigation }) => {
 
     const [users, setUsers] = useState<any[]>([]);
-    
+
     useEffect(() => {
         const fetchData = async () => {
-            const db = getFirestore();
-            const usersCollection = collection(db, 'users');
-            const usersSnapshot =  await getDocs(usersCollection);
+            const usersSnapshot = await firestore().collection('users').get();
             const userEmails = usersSnapshot.docs.map(doc => ({ id: doc.id, name: doc.data().email }));
             setUsers(userEmails);
         };
@@ -35,7 +32,7 @@ const UserSelectionScreen: React.FC<Props> = ({ route, navigation }) => {
     }, []);
 
     const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
-    
+
     const onSelectedUsersChange = (selectedItems: string[]) => {
         setSelectedUsers(selectedItems);
     };
@@ -64,7 +61,7 @@ const UserSelectionScreen: React.FC<Props> = ({ route, navigation }) => {
                 ListFooterComponent={
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => 
+                        onPress={() =>
                             navigation.navigate('ReportScreen', {
                                 selectedUsers: selectedUsers,
                             })
@@ -118,7 +115,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderRadius: 10,
         paddingHorizontal: 20,
-    }, 
+    },
 });
 
 export default UserSelectionScreen;

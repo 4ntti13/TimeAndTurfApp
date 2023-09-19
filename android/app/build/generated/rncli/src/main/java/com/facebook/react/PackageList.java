@@ -13,6 +13,12 @@ import java.util.ArrayList;
 
 // @react-native-community/datetimepicker
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
+// @react-native-firebase/app
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+// @react-native-firebase/auth
+import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
+// @react-native-firebase/firestore
+import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
 // @react-native-picker/picker
 import com.reactnativecommunity.picker.RNCPickerPackage;
 // react-native-gesture-handler
@@ -67,6 +73,9 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
       new RNDateTimePickerPackage(),
+      new ReactNativeFirebaseAppPackage(),
+      new ReactNativeFirebaseAuthPackage(),
+      new ReactNativeFirebaseFirestorePackage(),
       new RNCPickerPackage(),
       new RNGestureHandlerPackage(),
       new SafeAreaContextPackage(),

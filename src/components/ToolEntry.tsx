@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, FlatList } from
 import MultiSelect from 'react-native-multiple-select';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import firestore from '@react-native-firebase/firestore';  // <-- Updated
 
 type ToolEntryRouteProp = RouteProp<RootStackParamList, 'ToolEntry'>;
 type ToolEntryNavigationProp = NavigationProp<RootStackParamList, 'ToolEntry'>;
@@ -43,8 +43,7 @@ const ToolEntry: React.FC<Props> = ({ route, navigation }) => {
   useEffect(() => {
     const fetchTools = async () => {
       try {
-        const db = getFirestore();
-        const querySnapshot = await getDocs(collection(db, 'tools'));
+        const querySnapshot = await firestore().collection('tools').get();  // <-- Updated
         setTools(querySnapshot.docs.map((doc) => ({ id: doc.id, name: doc.data().name })));
       } catch (error) {
         console.error('Error fetching tools: ', error);
@@ -53,8 +52,7 @@ const ToolEntry: React.FC<Props> = ({ route, navigation }) => {
 
     const fetchMaterials = async () => {
       try {
-        const db = getFirestore();
-        const querySnapshot = await getDocs(collection(db, 'materials'));
+        const querySnapshot = await firestore().collection('materials').get();  // <-- Updated
         setMaterials(querySnapshot.docs.map((doc) => ({ id: doc.id, name: doc.data().name })));
       } catch (error) {
         console.error('Error fetching materials: ', error);

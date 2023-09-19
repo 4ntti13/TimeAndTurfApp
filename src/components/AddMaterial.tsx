@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable prettier/prettier */
-/* eslint-disable prettier/prettier */
+// AddMaterial.tsx:
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import firestore from '@react-native-firebase/firestore';  // Päivitetty import
 
 declare let alert: (message?: any) => void;
 
@@ -12,9 +11,8 @@ const AddMaterial: React.FC = () => {
   const [materialName, setMaterialName] = useState('');
 
   const handleAddMaterial = async () => {
-    const db = getFirestore();
     try {
-      await addDoc(collection(db, 'materials'), { name: materialName });
+      await firestore().collection('materials').add({ name: materialName });
       alert('Materiaali lisätty onnistuneesti!');
     } catch (error) {
       console.error('Materiaalia ei voitu lisätä!: ', error);
