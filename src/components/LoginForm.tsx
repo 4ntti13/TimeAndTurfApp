@@ -1,13 +1,12 @@
 /* eslint-disable prettier/prettier */
 
 // src/components/LoginForm.tsx
-
-import React, { useContext, useState } from 'react'; // import useContext
+import React, { useContext, useState } from 'react';
 import { Image, TextInput, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { loginUser } from '../services/firebase';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
-import { AuthContext } from '../contexts/AuthContext'; // import AuthContext
+import { AuthContext } from '../contexts/AuthContext';
 import firestore from '@react-native-firebase/firestore';
 
 type LoginFormNavigationProp = StackNavigationProp<
@@ -20,36 +19,36 @@ type Props = {
 };
 
 const LoginForm: React.FC<Props> = ({ navigation }) => {
-  const { setUser } = useContext(AuthContext); // get setUser function from AuthContext
+  const { setUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = async () => {
     try {
-        const userCredential = await loginUser(email, password);
-        if (userCredential) {
-            const uid = userCredential.user.uid;
-            const userDoc = await firestore().collection('users').doc(uid).get();
+      const userCredential = await loginUser(email, password);
+      if (userCredential) {
+        const uid = userCredential.user.uid;
+        const userDoc = await firestore().collection('users').doc(uid).get();
 
-            if (userDoc.exists) {
-                const userData = userDoc.data();
+        if (userDoc.exists) {
+          const userData = userDoc.data();
 
-                setUser({ email });
+          setUser({ email });
 
-                if (userData?.role === 'admin') {
-                    navigation.navigate('AdminPage');
-                } else {
-                    navigation.navigate('WorksiteSelection');
-                }
-            } else {
-                setErrorMessage('Kirjautuminen epäonnistui, tunnus tai salasana väärin!');
-            }
+          if (userData?.role === 'admin') {
+            navigation.navigate('AdminPage');
+          } else {
+            navigation.navigate('WorksiteSelection');
+          }
+        } else {
+          setErrorMessage('Kirjautuminen epäonnistui, tunnus tai salasana väärin!');
         }
+      }
     } catch (error) {
-        setErrorMessage((error as Error).message);
+      setErrorMessage((error as Error).message);
     }
-};
+  };
 
   return (
     <View style={styles.container}>

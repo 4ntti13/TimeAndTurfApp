@@ -16,7 +16,7 @@ type Props = {
 };
 
 const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
-  const { customer, worksite, arrivalTime, departureTime } = route.params;
+  const { customer, worksite, arrivalTime, departureTime, selectedDate } = route.params;
   const [materials, setMaterials] = useState<any[]>([]);
   const [selectedMaterials, setSelectedMaterials] = useState<{ id: string, quantity: number }[]>([]);
 
@@ -24,6 +24,7 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
     navigation.navigate('ToolEntry', {
       customer,
       worksite,
+      selectedDate,
       arrivalTime,
       departureTime,
       selectedMaterials,

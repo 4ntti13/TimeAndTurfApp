@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
@@ -16,10 +16,20 @@ type Props = {
 const WorksiteDetails: React.FC<Props> = ({ route }) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'WorksiteDetails'>>();
   const { customer, worksite } = route.params;
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [arrivalTime, setArrivalTime] = useState(new Date());
   const [departureTime, setDepartureTime] = useState(new Date());
+  const [showDateSelector, setShowDateSelector] = useState(false);
   const [showArrivalDatePicker, setShowArrivalDatePicker] = useState(false);
   const [showDepartureDatePicker, setShowDepartureDatePicker] = useState(false);
+
+  const onDateChange = (event: DateTimePickerEvent, newSelectedDate?: Date) => {
+    const currentDate = newSelectedDate || selectedDate;
+    setShowDateSelector(false);
+    setSelectedDate(currentDate);
+    setArrivalTime(currentDate);
+    setDepartureTime(currentDate);
+  };
 
   const onArrivalTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
     const currentTime = selectedTime || arrivalTime;
@@ -39,21 +49,38 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
       worksite,
       arrivalTime: arrivalTime.toISOString(),
       departureTime: departureTime.toISOString(),
-      selectedTools: [], // add this line
-      selectedMaterials: [], // add this line
+      selectedDate: selectedDate.toISOString(),
+      selectedTools: [],
+      selectedMaterials: [],
     });
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
         <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
       </View>
 
       <View style={styles.pickerContainer}>
+        <Text style={styles.headerText}>Valitse päivämäärä:</Text>
+        <Text style={styles.timeText}>{selectedDate.toISOString().slice(0,10)}</Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => setShowDateSelector(true)}>
+          <Text style={styles.buttonText}>Valitse päivä</Text>
+        </TouchableOpacity>
+        {showDateSelector && (
+          <DateTimePicker
+            value={selectedDate}
+            mode="date"
+            display="default"
+            onChange={onDateChange}
+          />
+        )}
+      </View>
+
+      <View style={styles.pickerContainer}>
         <Text style={styles.headerText}>Saapumisaika:</Text>
-        <Text style={styles.timeText}>{arrivalTime.toISOString().slice(0,10)} {arrivalTime.toTimeString().slice(0,5)}</Text>
+        <Text style={styles.timeText}>{arrivalTime.toTimeString().slice(0,5)}</Text>
         <TouchableOpacity style={styles.buttonContainer} onPress={() => setShowArrivalDatePicker(true)}>
           <Text style={styles.buttonText}>Valitse saapumisaika</Text>
         </TouchableOpacity>
@@ -69,7 +96,7 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
 
       <View style={styles.pickerContainer}>
         <Text style={styles.headerText}>Lähtöaika:</Text>
-        <Text style={styles.timeText}>{departureTime.toISOString().slice(0,10)} {departureTime.toTimeString().slice(0,5)}</Text>
+        <Text style={styles.timeText}>{departureTime.toTimeString().slice(0,5)}</Text>
         <TouchableOpacity style={styles.buttonContainer} onPress={() => setShowDepartureDatePicker(true)}>
           <Text style={styles.buttonText}>Valitse lähtöaika</Text>
         </TouchableOpacity>
@@ -84,17 +111,15 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
       </View>
 
       <TouchableOpacity style={styles.buttonContainer} onPress={goToMaterialEntry}>
-          <Text style={styles.buttonText}>Tallenna ja jatka</Text>
+        <Text style={styles.buttonText}>Tallenna ja jatka</Text>
       </TouchableOpacity>
-
-  </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     padding: 10,
     backgroundColor: '#40E0D0',
   },
@@ -149,6 +174,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
 
 export default WorksiteDetails;
