@@ -18,20 +18,25 @@ type Props = {
 };
 
 const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { selectedTools, selectedMaterials, arrivalTime, departureTime, customer, worksite } = route.params;
+  const { selectedTools, selectedMaterials, arrivalTime, departureTime, customer, worksite, selectedDate } = route.params;
   const { user, setUser } = useContext(AuthContext);
   const [comments, setComments] = useState('');
 
-  const formatDate = (dateString: string) => {
+  const formatTime = (timeString: string) => {
     const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
       hour: '2-digit',
       minute: '2-digit',
     };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('fi-FI', options);
+    const time = new Date(timeString);
+    return time.toLocaleTimeString('fi-FI', options);
+  };
+
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString('fi-FI', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
   };
 
   const handleSave = async () => {
@@ -41,6 +46,7 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
       worksite: worksite.name,
       selectedTools: selectedTools,
       selectedMaterials: selectedMaterials,
+      selectedDate,
       arrivalTime: arrivalTime,
       departureTime: departureTime,
       comments: comments,
@@ -73,6 +79,12 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
       </View>
 
       <View style={styles.sectionContainer}>
+        <Text style={styles.subHeaderText}>Päivämäärä:        {formatDate(selectedDate)}</Text>
+        <Text style={styles.subHeaderText}>Saapumisaika:    {formatTime(arrivalTime)}</Text>
+        <Text style={styles.subHeaderText}>Lähtöaika:           {formatTime(departureTime)}</Text>
+      </View>
+
+      <View style={styles.sectionContainer}>
         <Text style={styles.subHeaderText}>Työkalut</Text>
         {selectedTools.map((tool, index) => (
           <View key={index} style={styles.itemContainer}>
@@ -90,10 +102,7 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
         ))}
       </View>
 
-      <View style={styles.sectionContainer}>
-        <Text style={styles.subHeaderText}>Saapumisaika:   {formatDate(arrivalTime)}</Text>
-        <Text style={styles.subHeaderText}>Lähtöaika:           {formatDate(departureTime)}</Text>
-      </View>
+
 
       <View style={styles.sectionContainer}>
         <Text style={styles.subHeaderText}>Kommentit:</Text>

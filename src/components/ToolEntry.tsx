@@ -15,7 +15,7 @@ type Props = {
 };
 
 const ToolEntry: React.FC<Props> = ({ route, navigation }) => {
-  const { customer, worksite, arrivalTime, departureTime, selectedMaterials } = route.params;
+  const { customer, worksite, arrivalTime, departureTime, selectedMaterials, selectedDate } = route.params;
   const [tools, setTools] = useState<any[]>([]);
   const [materials, setMaterials] = useState<any[]>([]);
   const [selectedTools, setSelectedTools] = useState<{ id: string, quantity: number }[]>([]);
@@ -27,6 +27,7 @@ const ToolEntry: React.FC<Props> = ({ route, navigation }) => {
     navigation.navigate('QuantityEntry', {
       customer,
       worksite,
+      selectedDate,
       arrivalTime,
       departureTime,
       selectedTools,

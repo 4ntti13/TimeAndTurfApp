@@ -14,7 +14,7 @@ type Props = {
 };
 
 const QuantityEntry: React.FC<Props> = ({ route, navigation }) => {
-  const { selectedTools, selectedMaterials, selectedToolNames, selectedMaterialNames, customer, worksite, arrivalTime, departureTime } = route.params;
+  const { selectedTools, selectedMaterials, selectedToolNames, selectedMaterialNames, customer, worksite, arrivalTime, departureTime, selectedDate } = route.params;
 
   const [toolDataById, setToolDataById] = useState<{ [id: string]: { name: string; quantity: string } }>({});
   const [materialDataById, setMaterialDataById] = useState<{ [id: string]: { name: string; quantity: string } }>({});
@@ -59,6 +59,7 @@ const QuantityEntry: React.FC<Props> = ({ route, navigation }) => {
     navigation.navigate('SummaryScreen', {
       selectedTools: Object.values(toolDataById),
       selectedMaterials: Object.values(materialDataById),
+      selectedDate,
       arrivalTime,
       departureTime,
       customer,
