@@ -23,10 +23,14 @@ import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
 import com.reactnativecommunity.picker.RNCPickerPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
+// react-native-html-to-pdf
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
 // react-native-safe-area-context
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 // react-native-screens
 import com.swmansion.rnscreens.RNScreensPackage;
+// react-native-share
+import cl.json.RNSharePackage;
 
 public class PackageList {
   private Application application;
@@ -78,8 +82,10 @@ public class PackageList {
       new ReactNativeFirebaseFirestorePackage(),
       new RNCPickerPackage(),
       new RNGestureHandlerPackage(),
+      new RNHTMLtoPDFPackage(),
       new SafeAreaContextPackage(),
-      new RNScreensPackage()
+      new RNScreensPackage(),
+      new RNSharePackage()
     ));
   }
 }

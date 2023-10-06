@@ -14,8 +14,10 @@ MERGED from [:react-native-firebase_firestore] C:\Oppari\TimeAndTurfApp\node_mod
 MERGED from [:react-native-firebase_app] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-32:12
 MERGED from [:react-native-picker_picker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-gesture-handler] C:\Oppari\TimeAndTurfApp\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-html-to-pdf] C:\Oppari\TimeAndTurfApp\node_modules\react-native-html-to-pdf\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-safe-area-context] C:\Oppari\TimeAndTurfApp\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-screens] C:\Oppari\TimeAndTurfApp\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [com.facebook.react:react-android:0.72.4] C:\Users\antti\.gradle\caches\transforms-3\10345bf833f1812d640a38968527878a\transformed\jetified-react-android-0.72.4-debug\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\15817bcf0b046d4fa9f045e5c78cc5ba\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-analytics-ktx:21.3.0] C:\Users\antti\.gradle\caches\transforms-3\1caa6db134bc2b2abfe696fc2c696d09\transformed\jetified-firebase-analytics-ktx-21.3.0\AndroidManifest.xml:2:1-17:12
@@ -109,6 +111,7 @@ MERGED from [androidx.lifecycle:lifecycle-runtime:2.4.0] C:\Users\antti\.gradle\
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\antti\.gradle\caches\transforms-3\995f11254a475c03571fd827dae48a63\transformed\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\8e6fefd40a67a87a8f79ef379d48b8b8\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\5bebe22142bb88789400f96fc46def10\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.tom-roush:pdfbox-android:1.8.10.3] C:\Users\antti\.gradle\caches\transforms-3\41c7dd2025621be8c84fafd1bd4c98e3\transformed\jetified-pdfbox-android-1.8.10.3\AndroidManifest.xml:2:1-11:12
 MERGED from [com.facebook.fresco:fbcore:2.6.0] C:\Users\antti\.gradle\caches\transforms-3\980d9a634151efee45ac38ea72b2bba9\transformed\jetified-fbcore-2.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\antti\.gradle\caches\transforms-3\f111700a8d517ea3d9525954f7bc6b20\transformed\jetified-protolite-well-known-types-18.0.0\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\antti\.gradle\caches\transforms-3\00023f27f734fa473eeefc8e0c845419\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
@@ -163,6 +166,8 @@ MERGED from [:react-native-community_datetimepicker] C:\Oppari\TimeAndTurfApp\no
 MERGED from [:react-native-community_datetimepicker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-20
 MERGED from [:react-native-firebase_app] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-30:19
 MERGED from [:react-native-firebase_app] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-30:19
+MERGED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+MERGED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
 MERGED from [com.google.firebase:firebase-analytics-ktx:21.3.0] C:\Users\antti\.gradle\caches\transforms-3\1caa6db134bc2b2abfe696fc2c696d09\transformed\jetified-firebase-analytics-ktx-21.3.0\AndroidManifest.xml:7:5-15:19
 MERGED from [com.google.firebase:firebase-analytics-ktx:21.3.0] C:\Users\antti\.gradle\caches\transforms-3\1caa6db134bc2b2abfe696fc2c696d09\transformed\jetified-firebase-analytics-ktx-21.3.0\AndroidManifest.xml:7:5-15:19
 MERGED from [com.google.firebase:firebase-analytics:21.3.0] C:\Users\antti\.gradle\caches\transforms-3\4412651c08066bee37b3ea7766b8d796\transformed\jetified-firebase-analytics-21.3.0\AndroidManifest.xml:7:5-20
@@ -295,10 +300,14 @@ MERGED from [:react-native-picker_picker] C:\Oppari\TimeAndTurfApp\node_modules\
 MERGED from [:react-native-picker_picker] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-gesture-handler] C:\Oppari\TimeAndTurfApp\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-gesture-handler] C:\Oppari\TimeAndTurfApp\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-html-to-pdf] C:\Oppari\TimeAndTurfApp\node_modules\react-native-html-to-pdf\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-html-to-pdf] C:\Oppari\TimeAndTurfApp\node_modules\react-native-html-to-pdf\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-safe-area-context] C:\Oppari\TimeAndTurfApp\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-safe-area-context] C:\Oppari\TimeAndTurfApp\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-screens] C:\Oppari\TimeAndTurfApp\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-screens] C:\Oppari\TimeAndTurfApp\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.react:react-android:0.72.4] C:\Users\antti\.gradle\caches\transforms-3\10345bf833f1812d640a38968527878a\transformed\jetified-react-android-0.72.4-debug\AndroidManifest.xml:5:5-44
 MERGED from [com.facebook.react:react-android:0.72.4] C:\Users\antti\.gradle\caches\transforms-3\10345bf833f1812d640a38968527878a\transformed\jetified-react-android-0.72.4-debug\AndroidManifest.xml:5:5-44
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\15817bcf0b046d4fa9f045e5c78cc5ba\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
@@ -485,6 +494,8 @@ MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\antti\.gradle\ca
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\8e6fefd40a67a87a8f79ef379d48b8b8\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\5bebe22142bb88789400f96fc46def10\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] C:\Users\antti\.gradle\caches\transforms-3\5bebe22142bb88789400f96fc46def10\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.tom-roush:pdfbox-android:1.8.10.3] C:\Users\antti\.gradle\caches\transforms-3\41c7dd2025621be8c84fafd1bd4c98e3\transformed\jetified-pdfbox-android-1.8.10.3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.tom-roush:pdfbox-android:1.8.10.3] C:\Users\antti\.gradle\caches\transforms-3\41c7dd2025621be8c84fafd1bd4c98e3\transformed\jetified-pdfbox-android-1.8.10.3\AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.fresco:fbcore:2.6.0] C:\Users\antti\.gradle\caches\transforms-3\980d9a634151efee45ac38ea72b2bba9\transformed\jetified-fbcore-2.6.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fbcore:2.6.0] C:\Users\antti\.gradle\caches\transforms-3\980d9a634151efee45ac38ea72b2bba9\transformed\jetified-fbcore-2.6.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\antti\.gradle\caches\transforms-3\f111700a8d517ea3d9525954f7bc6b20\transformed\jetified-protolite-well-known-types-18.0.0\AndroidManifest.xml:7:5-9:41
@@ -595,6 +606,22 @@ ADDED from [:react-native-firebase_app] C:\Oppari\TimeAndTurfApp\node_modules\@r
 		ADDED from [:react-native-firebase_app] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-35
 	android:name
 		ADDED from [:react-native-firebase_app] C:\Oppari\TimeAndTurfApp\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-88
+provider#cl.json.RNShareFileProvider
+ADDED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+	android:grantUriPermissions
+		ADDED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+	android:authorities
+		ADDED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-72
+	android:exported
+		ADDED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+	android:name
+		ADDED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-55
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:64
+	android:resource
+		ADDED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-61
+	android:name
+		ADDED from [:react-native-share] C:\Oppari\TimeAndTurfApp\node_modules\react-native-share\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
 meta-data#com.google.firebase.components:com.google.firebase.analytics.ktx.FirebaseAnalyticsKtxRegistrar
 ADDED from [com.google.firebase:firebase-analytics-ktx:21.3.0] C:\Users\antti\.gradle\caches\transforms-3\1caa6db134bc2b2abfe696fc2c696d09\transformed\jetified-firebase-analytics-ktx-21.3.0\AndroidManifest.xml:11:13-13:85
 	android:value

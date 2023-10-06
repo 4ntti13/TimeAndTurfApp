@@ -1,33 +1,108 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable prettier/prettier */
+
 /* eslint-disable prettier/prettier */
 // ReportScreen:
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { RouteProp } from '@react-navigation/native';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import Share from 'react-native-share';
+import firestore from '@react-native-firebase/firestore';
 
 type ReportScreenRouteProp = RouteProp<RootStackParamList, 'ReportScreen'>;
 type Props = {
   route: ReportScreenRouteProp;
 }
 
+
+
 const ReportScreen: React.FC<Props> = ( {route} ) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const [summaries, setSummaries] = useState<any[]>([]);
+  const { selectedUsers = [] } = route.params;
+  console.log('Received users in ReportScreen:', selectedUsers);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let fetchedSummaries: any[] = [];
+
+        for (const user of selectedUsers) {
+          // Convert dates to Firestore timestamps
+          const startTimestamp = firestore.Timestamp.fromDate(new Date(startDate));
+          const endTimestamp = firestore.Timestamp.fromDate(new Date(endDate));
+          console.log('Fetching data for user:', user);
+          console.log('Start:', startTimestamp, 'End:', endTimestamp);
+
+          // Query to fetch data based on user, startDate, and endDate
+          const snapshot = await firestore()
+            .collection('summaries')
+            .where('user', '==', user)
+            // .where('selectedDate', '>=', startTimestamp)
+            // .where('selectedDate', '<=', endTimestamp)
+            .get();
+
+          console.log(`Data for user ${user}:`, snapshot.docs.map(doc => doc.data()));
+
+          fetchedSummaries = [...fetchedSummaries, ...snapshot.docs.map(doc => doc.data())];
+        }
+
+        setSummaries(fetchedSummaries);
+        console.log('Fetched summaries: ',fetchedSummaries);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
+    };
+
+    fetchData();
+  }, [startDate, endDate, selectedUsers]);
 
   // Muotoilu päivämäärälle
   const formatDate = (date: Date) => {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   };
 
+  const createAndSharePDF = async () => {
+    // Construct HTML from summaries
+    const summariesHtml = summaries.map(summary => {
+      // Muutetaan Timestamp-objekti Date-objektiksi
+      const summaryDate = summary.selectedDate?.toDate ? summary.selectedDate.toDate() : new Date(summary.selectedDate);
+      return `
+        <h2>${summary.worksite}</h2>
+        <p>Date: ${summaryDate.toLocaleDateString()}</p>
+        <p>Arrival Time: ${summary.arrivalTime}</p>
+        <p>Departure Time: ${summary.departureTime}</p>
+        <p>Comments: ${summary.comments}</p>
+      `;
+    }).join('');
+
+    // HTML and options for the PDF creation
+    let options = {
+      html: `<h1>Raportti</h1><p>Aloituspäivä: ${formatDate(startDate)}</p><p>Lopetuspäivä: ${formatDate(endDate)}</p>${summariesHtml}`,
+      fileName: 'report',
+      directory: 'docs',
+    };
+
+    try {
+      const { filePath } = await RNHTMLtoPDF.convert(options);
+      await Share.open({
+        url: `file://${filePath}`,
+        type: 'application/pdf',
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
-  const { selectedUsers = []} = route.params;
 
   return (
     <View style={styles.container}>
@@ -68,6 +143,10 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
           }}
         />
       )}
+
+      <TouchableOpacity style={styles.buttonContainer} onPress={createAndSharePDF}>
+        <Text style={styles.buttonText}>Luo ja jaa raportti</Text>
+      </TouchableOpacity>
     </View>
   );
 };

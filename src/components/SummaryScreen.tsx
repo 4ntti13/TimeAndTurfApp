@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+
+/* eslint-disable prettier/prettier */
 // SummaryScreen:
 
 import React, { useState, useContext } from 'react';
@@ -6,9 +8,10 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { AuthContext } from '../contexts/AuthContext';
-import firestore from '@react-native-firebase/firestore'; // Updated import
+import firestore, { firebase } from '@react-native-firebase/firestore';
 import { StackNavigationProp } from '@react-navigation/stack';
 import auth from '@react-native-firebase/auth'; // Auth-moduulin tuonti
+
 
 type SummaryScreenRouteProp = RouteProp<RootStackParamList, 'SummaryScreen'>;
 
@@ -18,6 +21,7 @@ type Props = {
 };
 
 const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
+
   const { selectedTools, selectedMaterials, arrivalTime, departureTime, customer, worksite, selectedDate } = route.params;
   const { user, setUser } = useContext(AuthContext);
   const [comments, setComments] = useState('');
@@ -40,13 +44,34 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const handleSave = async () => {
+
+    console.log('Selected date (raw):', selectedDate);
+
+    // Luo JavaScript Date-objekti selectedDate-stringistä ja
+    // muunna se sitten Firestore Timestamp-objektiksi.
+    const parsedDate = new Date(selectedDate);
+
+    // Tarkista, että luotu päivämäärä on kelvollinen
+    if (isNaN(parsedDate.getTime())) {
+        console.error('Invalid date:', selectedDate);
+        return;
+    }
+
+    const dateAsTimestamp = firebase.firestore.Timestamp.fromDate(parsedDate);
+
+    // Tarkista, että muunnos onnistui
+    if (!dateAsTimestamp) {
+        console.error('Failed to convert date to timestamp:', parsedDate);
+        return;
+    }
+
     const summaryData = {
       user: user?.email,
       customer: customer.name,
       worksite: worksite.name,
       selectedTools: selectedTools,
       selectedMaterials: selectedMaterials,
-      selectedDate,
+      selectedDate: dateAsTimestamp,
       arrivalTime: arrivalTime,
       departureTime: departureTime,
       comments: comments,

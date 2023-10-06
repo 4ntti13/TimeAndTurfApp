@@ -5,6 +5,7 @@ import React, { createContext, useState, Dispatch, SetStateAction, FunctionCompo
 
 export interface IUser {
   email: string;
+
 }
 
 interface IAuthContext {

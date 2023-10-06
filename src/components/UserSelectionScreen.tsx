@@ -34,6 +34,7 @@ const UserSelectionScreen: React.FC<Props> = ({ route, navigation }) => {
     const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
     const onSelectedUsersChange = (selectedItems: string[]) => {
+        console.log('Selected items:', selectedItems);
         setSelectedUsers(selectedItems);
     };
 
@@ -61,11 +62,12 @@ const UserSelectionScreen: React.FC<Props> = ({ route, navigation }) => {
                 ListFooterComponent={
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() =>
+                        onPress={() => {
+                            console.log('users:', selectedUsers);
                             navigation.navigate('ReportScreen', {
                                 selectedUsers: selectedUsers,
-                            })
-                        }>
+                            });
+                        }}>
                         <Text style={styles.buttonText}>Jatka Raporttiin</Text>
                     </TouchableOpacity>
                 }
