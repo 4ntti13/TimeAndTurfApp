@@ -14,6 +14,7 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import Share from 'react-native-share';
 import firestore from '@react-native-firebase/firestore';
 
+
 type ReportScreenRouteProp = RouteProp<RootStackParamList, 'ReportScreen'>;
 type Props = {
   route: ReportScreenRouteProp;
@@ -35,22 +36,35 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
       try {
         let fetchedSummaries: any[] = [];
 
-        for (const user of selectedUsers) {
-          // Convert dates to Firestore timestamps
-          const startTimestamp = firestore.Timestamp.fromDate(new Date(startDate));
-          const endTimestamp = firestore.Timestamp.fromDate(new Date(endDate));
-          console.log('Fetching data for user:', user);
-          console.log('Start:', startTimestamp, 'End:', endTimestamp);
+        // Convert uids to email
+        const emailPromises = selectedUsers.map(uid =>
+          firestore().collection('users').doc(uid).get().then(doc => doc.data()?.email)
+        );
+        const emails = await Promise.all(emailPromises);
 
-          // Query to fetch data based on user, startDate, and endDate
+        const startString = startDate.toISOString().split('T')[0];
+        const endString = endDate.toISOString().split('T')[0];
+
+        for (const email of emails) {
+          // Convert dates to Firestore timestamps
+          console.log('start date:', startDate);
+          console.log('end date:', endDate);
+          // const startTimestamp = firestore.Timestamp.fromDate(new Date(startDate));
+          // const endTimestamp = firestore.Timestamp.fromDate(new Date(endDate));
+
+          console.log('Fetching data for email:', email);
+          console.log('Start:', startString, 'End:',endString);
+
+
+          // Query to fetch data based on email, startDate, and endDate
           const snapshot = await firestore()
             .collection('summaries')
-            .where('user', '==', user)
-            // .where('selectedDate', '>=', startTimestamp)
-            // .where('selectedDate', '<=', endTimestamp)
+            .where('user', '==', email)
+            .where('selectedDate', '>=', startString)
+            .where('selectedDate', '<=', endString)
             .get();
 
-          console.log(`Data for user ${user}:`, snapshot.docs.map(doc => doc.data()));
+          console.log(`Data for email ${email}:`, snapshot.docs.map(doc => doc.data()));
 
           fetchedSummaries = [...fetchedSummaries, ...snapshot.docs.map(doc => doc.data())];
         }
@@ -63,24 +77,58 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
     };
 
     fetchData();
-  }, [startDate, endDate, selectedUsers]);
+}, [startDate, endDate, selectedUsers]);
 
   // Muotoilu päivämäärälle
   const formatDate = (date: Date) => {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   };
 
+  const formatTime = (time: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    const parsedTime = new Date(time);
+    return parsedTime.toLocaleTimeString('fi-FI', options);
+  };
+
   const createAndSharePDF = async () => {
+
+    type Material = {
+      name: string;
+      quantity: string;
+    };
+
+    type Tool = {
+      name: string;
+      quantity: string;
+    };
     // Construct HTML from summaries
     const summariesHtml = summaries.map(summary => {
-      // Muutetaan Timestamp-objekti Date-objektiksi
+
       const summaryDate = summary.selectedDate?.toDate ? summary.selectedDate.toDate() : new Date(summary.selectedDate);
+
+      const materialsHtml = summary.selectedMaterials.map((material:Material) =>
+        `<li>${material.name}: ${material.quantity} kpl</li>`
+      ).join('');
+
+      const toolsHtml = summary.selectedTools.map((tool:Tool) =>
+        `<li>${tool.name}: ${tool.quantity} kpl</li>`
+      ).join('');
+
       return `
         <h2>${summary.worksite}</h2>
-        <p>Date: ${summaryDate.toLocaleDateString()}</p>
-        <p>Arrival Time: ${summary.arrivalTime}</p>
-        <p>Departure Time: ${summary.departureTime}</p>
-        <p>Comments: ${summary.comments}</p>
+        <h3>Asiakas: ${summary.customer}<h3>
+        <p>Päivämäärä: ${formatDate(summaryDate)}</p>
+        <p>Saapumisaika: ${formatTime(summary.arrivalTime)}</p>
+        <p>Lähtöaika: ${formatTime(summary.departureTime)}</p>
+        <p>Materiaalit:</p>
+        <ul>${materialsHtml}</ul>
+        <p>Työkalut/laitteet:</p>
+        <ul>${toolsHtml}</ul>
+        <p>Kommentit: ${summary.comments}</p>
+        <p>--------------------------------------</p>
       `;
     }).join('');
 
@@ -101,8 +149,6 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
       console.error(error);
     }
   };
-
-
 
   return (
     <View style={styles.container}>

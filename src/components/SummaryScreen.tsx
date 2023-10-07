@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
-
-/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // SummaryScreen:
 
 import React, { useState, useContext } from 'react';
@@ -10,7 +9,7 @@ import { RootStackParamList } from '../navigation/AppNavigator';
 import { AuthContext } from '../contexts/AuthContext';
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import { StackNavigationProp } from '@react-navigation/stack';
-import auth from '@react-native-firebase/auth'; // Auth-moduulin tuonti
+import auth from '@react-native-firebase/auth';
 
 
 type SummaryScreenRouteProp = RouteProp<RootStackParamList, 'SummaryScreen'>;
@@ -57,13 +56,9 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
         return;
     }
 
-    const dateAsTimestamp = firebase.firestore.Timestamp.fromDate(parsedDate);
+    const isoDateString = parsedDate.toISOString().split('T')[0];
 
-    // Tarkista, että muunnos onnistui
-    if (!dateAsTimestamp) {
-        console.error('Failed to convert date to timestamp:', parsedDate);
-        return;
-    }
+
 
     const summaryData = {
       user: user?.email,
@@ -71,7 +66,7 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
       worksite: worksite.name,
       selectedTools: selectedTools,
       selectedMaterials: selectedMaterials,
-      selectedDate: dateAsTimestamp,
+      selectedDate: isoDateString,
       arrivalTime: arrivalTime,
       departureTime: departureTime,
       comments: comments,
