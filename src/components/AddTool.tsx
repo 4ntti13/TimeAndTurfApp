@@ -1,30 +1,41 @@
 /* eslint-disable prettier/prettier */
-// AddTool.tsx:
-
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import firestore from '@react-native-firebase/firestore';  // Päivitetty import
+import { Picker } from '@react-native-picker/picker';  // Muutos tässä
+import firestore from '@react-native-firebase/firestore';
 
 declare let alert: (message?: any) => void;
 
 const AddTool: React.FC = () => {
   const [toolName, setToolName] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleAddTool = async () => {
     try {
-      await firestore().collection('tools').add({ name: toolName });
-      alert('Työkalu lisätty onnistuneesti!');
+      await firestore().collection('tools').add({ name: toolName, category: selectedCategory });
+      alert('Lisäys onnistui!');
     } catch (error) {
-      console.error('Työkalua ei voitu lisätä!: ', error);
+      console.error('Lisäyksessä tapahtui virhe!: ', error);
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.headerText}>Lisää uusi työkalu</Text>
+        <Text style={styles.headerText}>Lisää uusi laite</Text>
       </View>
-      <Text style={styles.label}>Työkalun Nimi:</Text>
+      <Text style={styles.label}>Kategoria:</Text>
+      <Picker
+        selectedValue={selectedCategory}
+        style={styles.input}
+        onValueChange={(itemValue) => setSelectedCategory(itemValue)}
+      >
+        <Picker.Item label="Valitse Kategoria" value="" />
+        <Picker.Item label="Koneet" value="machines" />
+        <Picker.Item label="Kuorma-autot" value="trucks" />
+        <Picker.Item label="Tiivistäjät" value="compactors" />
+      </Picker>
+      <Text style={styles.label}>Laitteen nimi:</Text>
       <TextInput
         style={styles.input}
         value={toolName}

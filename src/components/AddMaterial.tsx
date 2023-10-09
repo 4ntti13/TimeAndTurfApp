@@ -3,16 +3,26 @@
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import firestore from '@react-native-firebase/firestore';  // Päivitetty import
+import { Picker } from '@react-native-picker/picker';  // Tuo Picker
+import firestore from '@react-native-firebase/firestore';
 
 declare let alert: (message?: any) => void;
 
 const AddMaterial: React.FC = () => {
   const [materialName, setMaterialName] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleAddMaterial = async () => {
     try {
-      await firestore().collection('materials').add({ name: materialName });
+      if (!selectedCategory) {
+        alert('Valitse kategoria ennen jatkamista!');
+        return;
+      }
+
+      await firestore().collection('materials').add({
+        name: materialName,
+        category: selectedCategory,
+      });
       alert('Materiaali lisätty onnistuneesti!');
     } catch (error) {
       console.error('Materiaalia ei voitu lisätä!: ', error);
@@ -24,6 +34,16 @@ const AddMaterial: React.FC = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.headerText}>Lisää uusi materiaali</Text>
       </View>
+      <Text style={styles.label}>Kategoria:</Text>
+      <Picker
+        selectedValue={selectedCategory}
+        style={styles.input}
+        onValueChange={(itemValue) => setSelectedCategory(itemValue)}
+      >
+        <Picker.Item label="Valitse Kategoria" value="" />
+        <Picker.Item label="Putkitarvikkeet" value="pipeFittings" />
+        <Picker.Item label="Maa-ainekset" value="soils" />
+      </Picker>
       <Text style={styles.label}>Materiaalin Nimi:</Text>
       <TextInput
         style={styles.input}
