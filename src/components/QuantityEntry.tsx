@@ -13,11 +13,16 @@ type Props = {
   navigation: QuantityEntryNavigationProp;
 };
 
+
+
 const QuantityEntry: React.FC<Props> = ({ route, navigation }) => {
   const { selectedTools, selectedMaterials, selectedToolNames, selectedMaterialNames, customer, worksite, arrivalTime, departureTime, selectedDate } = route.params;
 
   const [toolDataById, setToolDataById] = useState<{ [id: string]: { name: string; quantity: string } }>({});
   const [materialDataById, setMaterialDataById] = useState<{ [id: string]: { name: string; quantity: string } }>({});
+  console.log('Selected Tool names:', selectedToolNames);
+  console.log('Selected Material Names:', selectedMaterialNames);
+
 
   useEffect(() => {
     setToolDataById(
@@ -66,6 +71,13 @@ const QuantityEntry: React.FC<Props> = ({ route, navigation }) => {
       worksite,
     });
   };
+
+  useEffect(() => {
+    console.log('Initial selectedTools:', selectedTools);
+    console.log('Initial selectedMaterials:', selectedMaterials);
+    //...
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ScrollView style={styles.container}>

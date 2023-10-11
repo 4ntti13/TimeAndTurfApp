@@ -5,7 +5,7 @@ import { Text, StyleSheet, TouchableOpacity, View, FlatList, SafeAreaView } from
 import MultiSelect from 'react-native-multiple-select';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
-import firestore from '@react-native-firebase/firestore';  // <-- Updated
+import firestore from '@react-native-firebase/firestore';
 
 type MaterialEntryRouteProp = RouteProp<RootStackParamList, 'MaterialEntry'>;
 type MaterialEntryNavigationProp = NavigationProp<RootStackParamList, 'MaterialEntry'>;
@@ -15,11 +15,19 @@ type Props = {
   navigation: MaterialEntryNavigationProp;
 };
 
+const translations: { [key: string]: string } = {
+  soils: 'Maa-ainekset',
+  pipeFittings: 'Putkitarvikkeet',
+};
+
 const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
   const { customer, worksite, arrivalTime, departureTime, selectedDate } = route.params;
   const [materials, setMaterials] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [selectedMaterials, setSelectedMaterials] = useState<{ id: string, quantity: number }[]>([]);
-
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [filteredMaterials, setFilteredMaterials] = useState<any[]>([]);
+  console.log('selected materials: ', selectedMaterials);
   const onProceed = () => {
     navigation.navigate('ToolEntry', {
       customer,
@@ -28,38 +36,97 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
       arrivalTime,
       departureTime,
       selectedMaterials,
+      selectedCategories,
     });
   };
 
+
   const onSelectedMaterialsChange = (newSelectedMaterials: string[]) => {
-    setSelectedMaterials(newSelectedMaterials.map(id => ({ id, quantity: 0 })));
+    setSelectedMaterials(prevState => {
+      const alreadySelected = prevState.filter(mat => newSelectedMaterials.includes(mat.id));
+      const newItems = newSelectedMaterials.filter(
+        id => !prevState.some(mat => mat.id === id)
+      ).map(id => ({ id, quantity: 0 }));
+      const newState = [...alreadySelected, ...newItems];
+      console.log('New state:', newState);
+      return newState;
+    });
+  };
+
+  const onSelectedCategoriesChange = (newSelectedCategories: string[]) => {
+    console.log('New selected categories:', newSelectedCategories);
+    setSelectedCategories(newSelectedCategories);
+
   };
 
   useEffect(() => {
-    const fetchMaterials = async () => {
+    console.log('Selected categories state:', selectedCategories);
+}, [selectedCategories]);
+
+
+  useEffect(() => {
+    if (selectedCategories.length > 0) {
+      const filtered = materials.filter(m => selectedCategories.includes(m.category));
+      console.log('Filtered materials:', filtered);
+      setFilteredMaterials(filtered);
+    } else {
+      setFilteredMaterials([]);
+    }
+  }, [selectedCategories, materials]);
+
+  useEffect(() => {
+    const fetchMaterialsAndCategories = async () => {
       try {
-        const querySnapshot = await firestore().collection('materials').get();
-        setMaterials(querySnapshot.docs.map((doc) => ({ id: doc.id, name: doc.data().name })));
+        const materialSnapshot = await firestore().collection('materials').get();
+
+        const fetchedMaterials = materialSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+          category: doc.data().category,
+        }));
+        setMaterials(fetchedMaterials);
+
+        const uniqueCategories = [...new Set(fetchedMaterials.map(m => m.category))];
+        setCategories(uniqueCategories.map(category => ({
+          id: category,
+          name: translations[category] || category,
+        })));
       } catch (error) {
-        console.error('Materiaaleja ei voitu hakea: ', error);
+        console.error('Data cannot be fetched: ', error);
       }
     };
 
-    fetchMaterials();
-  }, []);
+    fetchMaterialsAndCategories();
+}, []);
+
+  useEffect(() => {
+    console.log('Materials:', materials);
+    console.log('Selected categories:', selectedCategories);
+}, [materials, selectedCategories]);
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={materials}
+        data={filteredMaterials}
         keyExtractor={item => item.id}
-        renderItem={() => null} // Lisätty tyhjä renderItem-funktio
+        renderItem={() => null}
         ListHeaderComponent={
           <View>
+            <Text style={styles.subHeaderText}>Valitse kategoriat</Text>
+            <View style={styles.multiSelectContainer}>
+              <MultiSelect
+                items={categories}
+                selectText="Valitse"
+                selectedText="Valittu"
+                uniqueKey="id"
+                onSelectedItemsChange={onSelectedCategoriesChange}
+                selectedItems={selectedCategories}
+              />
+            </View>
             <Text style={styles.subHeaderText}>Valitse materiaalit</Text>
             <View style={styles.multiSelectContainer}>
               <MultiSelect
-                items={materials}
+                items={filteredMaterials} // Notice change from materials to filteredMaterials
                 selectText="Valitse"
                 selectedText="Valittu"
                 uniqueKey="id"

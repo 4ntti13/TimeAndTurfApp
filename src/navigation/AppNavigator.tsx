@@ -41,6 +41,7 @@ export type RootStackParamList = {
     departureTime: string;
     selectedTools: { id: string; quantity: number; }[];
     selectedMaterials: { id: string; quantity: number; }[];
+    selectedCategories: string[];
   };
   ToolEntry: {
     customer: { name: string };
@@ -49,6 +50,7 @@ export type RootStackParamList = {
     arrivalTime: string;
     departureTime: string;
     selectedMaterials: { id: string; quantity: number; }[];
+    selectedCategories: string[];
   };
   QuantityEntry: {
     selectedTools: { id: string; quantity: number; }[];
