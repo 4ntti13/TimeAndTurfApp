@@ -82,12 +82,12 @@ const QuantityEntry: React.FC<Props> = ({ route, navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
-        <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
+        <Text style={styles.headerTextSmall}>Valittu asiakas: {customer.name}</Text>
+        <Text style={styles.headerTextSmall}>Valittu työmaa: {worksite.name}</Text>
       </View>
-
+      <Text style={styles.headerText}>Aseta valittujen työkalujen/laitteiden/materiaalien lukumäärät</Text>
       <View style={styles.sectionContainer}>
-        <Text style={styles.subHeaderText}>Työkalut</Text>
+        <Text style={styles.subHeaderText}>Työkalut/laitteet</Text>
         {Object.entries(toolDataById).map(([id, { name, quantity }], index) => (
           <View key={index} style={styles.itemContainer}>
             <Text style={styles.itemText}>{name}</Text>
@@ -131,11 +131,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#40E0D0',
   },
-  titleContainer: {
-    alignItems: 'center',
-    marginBottom: 30,
-    paddingTop: 20,
-  },
   sectionContainer: {
     marginBottom: 20,
     backgroundColor: 'white',
@@ -155,6 +150,29 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
+  },
+  headerTextSmall: {
+    fontSize: 16,
+    fontWeight: '400',  // Lighter font weight for a cleaner look
+    color: '#333',  // Slightly off-black for softer appearance
+    textAlign: 'left',
+    marginVertical: 8,
+  },
+
+  titleContainer: {
+    marginBottom: 25,
+    paddingLeft: 5,
+    borderRadius: 10,
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1, // Subtle shadow
+    shadowRadius: 5,
+    elevation: 2,
   },
   subHeaderText: {
     fontSize: 20,

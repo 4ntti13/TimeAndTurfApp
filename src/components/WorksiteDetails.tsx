@@ -52,6 +52,7 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
       selectedDate: selectedDate.toISOString(),
       selectedTools: [],
       selectedMaterials: [],
+      selectedCategories: [],
     });
   };
 
@@ -127,10 +128,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 10,
+    marginVertical: 5,
   },
   timeText: {
     fontSize: 16,

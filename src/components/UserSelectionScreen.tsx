@@ -68,7 +68,7 @@ const UserSelectionScreen: React.FC<Props> = ({ route, navigation }) => {
                                 selectedUsers: selectedUsers,
                             });
                         }}>
-                        <Text style={styles.buttonText}>Jatka Raporttiin</Text>
+                        <Text style={styles.buttonText}>Siirry valitsemaan aikaväli</Text>
                     </TouchableOpacity>
                 }
             />

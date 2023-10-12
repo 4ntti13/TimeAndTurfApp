@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';  // Muutos tässä
+import { Picker } from '@react-native-picker/picker';
 import firestore from '@react-native-firebase/firestore';
 
 declare let alert: (message?: any) => void;

@@ -151,6 +151,19 @@ useEffect(() => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.headerTextSmall}>Valittu asiakas: {customer.name}</Text>
+        <Text style={styles.headerTextSmall}>Valittu työmaa: {worksite.name}</Text>
+        {selectedMaterials.length > 0 && (
+        <Text style={styles.headerTextSmall}>Valitut materiaalit:</Text>
+        )}
+        {selectedMaterials.map(material => (
+          <Text key={material.id} style={styles.indentedText}>
+            - {materials.find(m => m.id === material.id)?.name || 'Tuntematon'}
+          </Text>
+        ))}
+      </View>
+      <Text style={styles.headerText}>Valitse työkalut/laitteet</Text>
       <FlatList
         data={filteredTools}
         keyExtractor={item => item.id}
@@ -204,6 +217,38 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginVertical: 20,
       marginTop: 0,
+    },
+    headerTextSmall: {
+      fontSize: 16,
+      fontWeight: '400',  // Lighter font weight for a cleaner look
+      color: '#333',  // Slightly off-black for softer appearance
+      textAlign: 'left',
+      marginVertical: 8,
+    },
+
+    titleContainer: {
+      marginBottom: 25,
+      paddingLeft: 5,
+      borderRadius: 10,
+      backgroundColor: '#f5f5f5',
+      padding: 10,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.1, // Subtle shadow
+      shadowRadius: 5,
+      elevation: 2,
+    },
+
+    indentedText: {
+      fontSize: 14,
+      fontWeight: '400',
+      color: '#666',  // A lighter color for sub-information
+      textAlign: 'left',
+      marginVertical: 5,
+      paddingLeft: 15,  // Slightly more indented than before
     },
     multiSelectContainer: {
       marginBottom: 30,

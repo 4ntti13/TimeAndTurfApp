@@ -92,20 +92,21 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
+      <Text style={styles.headerText}>Yhteenveto</Text>
+      <Text style={styles.subHeaderText}>Tarkasta asettamasi työmaatiedot ja lisää kommenntteja tarvittaessa!</Text>
       <View style={styles.titleContainer}>
-        {user && <Text style={styles.headerText}>Kirjautunut käyttäjä: {user.email}</Text>}
-        <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
-        <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
+        {user && <Text style={styles.headerTextSmall}>Kirjautunut käyttäjä: {user.email}</Text>}
+        <Text style={styles.headerTextSmall}>Valittu asiakas: {customer.name}</Text>
+        <Text style={styles.headerTextSmall}>Valittu työmaa: {worksite.name}</Text>
       </View>
-
       <View style={styles.sectionContainer}>
         <Text style={styles.subHeaderText}>Päivämäärä:        {formatDate(selectedDate)}</Text>
-        <Text style={styles.subHeaderText}>Saapumisaika:    {formatTime(arrivalTime)}</Text>
-        <Text style={styles.subHeaderText}>Lähtöaika:           {formatTime(departureTime)}</Text>
+        <Text style={styles.subHeaderText}>Saapumisaika:    klo: {formatTime(arrivalTime)}</Text>
+        <Text style={styles.subHeaderText}>Lähtöaika:            klo: {formatTime(departureTime)}</Text>
       </View>
 
       <View style={styles.sectionContainer}>
-        <Text style={styles.subHeaderText}>Työkalut</Text>
+        <Text style={styles.subHeaderText}>Työkalut/laitteet</Text>
         {selectedTools.map((tool, index) => (
           <View key={index} style={styles.itemContainer}>
             <Text style={styles.itemText}>{tool.name}: {tool.quantity} kpl</Text>
@@ -137,7 +138,7 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
       </View>
 
       <View style={styles.sectionContainer}>
-        <Text style={styles.noteText}>Kun olet VARMASTI tarkistanut asettamasi työmaatiedot, paina "Tallenna valinnat ja lopeta". Tämä tallentaa tiedot laskutusta varten, eikä niitä voi enää muokata.</Text>
+        <Text style={styles.noteText}>Kun olet VARMASTI tarkastanut asettamasi työmaatiedot, paina "Tallenna valinnat ja lopeta". Tämä tallentaa tiedot laskutusta varten, eikä niitä voi enää muokata.</Text>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
           <Text style={styles.buttonText}>Tallenna valinnat ja lopeta</Text>
@@ -153,10 +154,28 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#40E0D0',
   },
+  headerTextSmall: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#333',
+    textAlign: 'left',
+    marginVertical: 8,
+  },
+
   titleContainer: {
-    alignItems: 'center',
-    marginBottom: 30,
-    paddingTop: 20,
+    marginBottom: 25,
+    paddingLeft: 5,
+    borderRadius: 10,
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1, // Subtle shadow
+    shadowRadius: 5,
+    elevation: 2,
   },
   sectionContainer: {
     marginBottom: 20,
@@ -176,7 +195,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop: 20,
   },
   subHeaderText: {
     fontSize: 20,

@@ -46,15 +46,11 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
         const endString = endDate.toISOString().split('T')[0];
 
         for (const email of emails) {
-          // Convert dates to Firestore timestamps
+
           console.log('start date:', startDate);
           console.log('end date:', endDate);
-          // const startTimestamp = firestore.Timestamp.fromDate(new Date(startDate));
-          // const endTimestamp = firestore.Timestamp.fromDate(new Date(endDate));
-
           console.log('Fetching data for email:', email);
           console.log('Start:', startString, 'End:',endString);
-
 
           // Query to fetch data based on email, startDate, and endDate
           const snapshot = await firestore()
@@ -79,7 +75,6 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
     fetchData();
 }, [startDate, endDate, selectedUsers]);
 
-  // Muotoilu päivämäärälle
   const formatDate = (date: Date) => {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   };
@@ -119,6 +114,7 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
 
       return `
         <h2>${summary.worksite}</h2>
+        <h3>Työntekijä: ${summary.user}<h3>
         <h3>Asiakas: ${summary.customer}<h3>
         <p>Päivämäärä: ${formatDate(summaryDate)}</p>
         <p>Saapumisaika: ${formatTime(summary.arrivalTime)}</p>

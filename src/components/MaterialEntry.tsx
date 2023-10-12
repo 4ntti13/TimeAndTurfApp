@@ -106,6 +106,11 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.headerTextSmall}>Valittu asiakas: {customer.name}</Text>
+        <Text style={styles.headerTextSmall}>Valittu työmaa: {worksite.name}</Text>
+      </View>
+      <Text style={styles.headerText}>Valitse materiaalit</Text>
       <FlatList
         data={filteredMaterials}
         keyExtractor={item => item.id}
@@ -126,7 +131,7 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
             <Text style={styles.subHeaderText}>Valitse materiaalit</Text>
             <View style={styles.multiSelectContainer}>
               <MultiSelect
-                items={filteredMaterials} // Notice change from materials to filteredMaterials
+                items={filteredMaterials}
                 selectText="Valitse"
                 selectedText="Valittu"
                 uniqueKey="id"
@@ -154,11 +159,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#40E0D0',
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 20,
-    marginTop: 0,
+    marginVertical: 5,
+  },
+  headerTextSmall: {
+    fontSize: 16,
+    fontWeight: '400',  // Lighter font weight for a cleaner look
+    color: '#333',  // Slightly off-black for softer appearance
+    textAlign: 'left',
+    marginVertical: 8,
+  },
+
+  titleContainer: {
+    marginBottom: 25,
+    paddingLeft: 5,
+    borderRadius: 10,
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1, // Subtle shadow
+    shadowRadius: 5,
+    elevation: 2,
   },
   multiSelectContainer: {
     marginBottom: 30,

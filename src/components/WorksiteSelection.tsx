@@ -73,7 +73,7 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.headerText}>Valitse asiakas ja työmaa</Text>
+        <Text style={styles.headerText}>Valitse asiakas</Text>
       </View>
       <View style={styles.pickerContainer}>
         <Picker
@@ -85,6 +85,9 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
             <Picker.Item label={customer.name} value={customer.id} key={customer.id} />
           ))}
         </Picker>
+      </View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.headerText}>Valitse työmaa</Text>
       </View>
       <View style={styles.pickerContainer}>
         <Picker
