@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, FlatList } from
 import MultiSelect from 'react-native-multiple-select';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
-import firestore from '@react-native-firebase/firestore';  // <-- Updated
+import firestore from '@react-native-firebase/firestore';
 
 type ToolEntryRouteProp = RouteProp<RootStackParamList, 'ToolEntry'>;
 type ToolEntryNavigationProp = NavigationProp<RootStackParamList, 'ToolEntry'>;
@@ -174,6 +174,8 @@ useEffect(() => {
               <View style={styles.multiSelectContainer}>
                 <MultiSelect
                   items={categories}
+                  searchInputPlaceholderText="Etsi"
+                  submitButtonText="Tallenna"
                   selectText="Valitse"
                   selectedText="Valittu"
                   uniqueKey="id"
@@ -185,6 +187,8 @@ useEffect(() => {
               <View style={styles.multiSelectContainer}>
                 <MultiSelect
                   items={filteredTools}
+                  searchInputPlaceholderText="Etsi"
+                  submitButtonText="Tallenna"
                   selectText="Valitse"
                   selectedText="Valittu"
                   uniqueKey="id"
@@ -220,8 +224,8 @@ const styles = StyleSheet.create({
     },
     headerTextSmall: {
       fontSize: 16,
-      fontWeight: '400',  // Lighter font weight for a cleaner look
-      color: '#333',  // Slightly off-black for softer appearance
+      fontWeight: '400',
+      color: '#333',
       textAlign: 'left',
       marginVertical: 8,
     },
@@ -237,7 +241,7 @@ const styles = StyleSheet.create({
         width: 0,
         height: 2,
       },
-      shadowOpacity: 0.1, // Subtle shadow
+      shadowOpacity: 0.1,
       shadowRadius: 5,
       elevation: 2,
     },
@@ -245,10 +249,10 @@ const styles = StyleSheet.create({
     indentedText: {
       fontSize: 14,
       fontWeight: '400',
-      color: '#666',  // A lighter color for sub-information
+      color: '#666',
       textAlign: 'left',
       marginVertical: 5,
-      paddingLeft: 15,  // Slightly more indented than before
+      paddingLeft: 15,
     },
     multiSelectContainer: {
       marginBottom: 30,

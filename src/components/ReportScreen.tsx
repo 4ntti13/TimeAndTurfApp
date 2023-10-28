@@ -99,52 +99,98 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
       name: string;
       quantity: string;
     };
-    // Construct HTML from summaries
-    const summariesHtml = summaries.map(summary => {
+  // Construct HTML from summaries
+  const summariesHtml = summaries.map(summary => {
+    const summaryDate = summary.selectedDate?.toDate ? summary.selectedDate.toDate() : new Date(summary.selectedDate);
 
-      const summaryDate = summary.selectedDate?.toDate ? summary.selectedDate.toDate() : new Date(summary.selectedDate);
+    const materialsHtml = summary.selectedMaterials.map((material: Material) =>
+      `<li>${material.name}: ${material.quantity} kpl</li>`
+    ).join('');
 
-      const materialsHtml = summary.selectedMaterials.map((material:Material) =>
-        `<li>${material.name}: ${material.quantity} kpl</li>`
-      ).join('');
+    const toolsHtml = summary.selectedTools.map((tool: Tool) =>
+      `<li>${tool.name}: ${tool.quantity} kpl</li>`
+    ).join('');
 
-      const toolsHtml = summary.selectedTools.map((tool:Tool) =>
-        `<li>${tool.name}: ${tool.quantity} kpl</li>`
-      ).join('');
-
-      return `
+    return `
+      <div class="summary">
         <h2>${summary.worksite}</h2>
-        <h3>Työntekijä: ${summary.user}<h3>
-        <h3>Asiakas: ${summary.customer}<h3>
+        <h3>Työntekijä: ${summary.user}</h3>
+        <h3>Asiakas: ${summary.customer}</h3>
         <p>Päivämäärä: ${formatDate(summaryDate)}</p>
         <p>Saapumisaika: ${formatTime(summary.arrivalTime)}</p>
         <p>Lähtöaika: ${formatTime(summary.departureTime)}</p>
-        <p>Materiaalit:</p>
-        <ul>${materialsHtml}</ul>
-        <p>Työkalut/laitteet:</p>
-        <ul>${toolsHtml}</ul>
+        <div>
+          <p>Materiaalit:</p>
+          <ul>${materialsHtml}</ul>
+        </div>
+        <div>
+          <p>Työkalut/laitteet:</p>
+          <ul>${toolsHtml}</ul>
+        </div>
         <p>Kommentit: ${summary.comments}</p>
-        <p>--------------------------------------</p>
-      `;
-    }).join('');
+      </div>
+      <hr>
+    `;
+  }).join('');
 
-    // HTML and options for the PDF creation
-    let options = {
-      html: `<h1>Raportti</h1><p>Aloituspäivä: ${formatDate(startDate)}</p><p>Lopetuspäivä: ${formatDate(endDate)}</p>${summariesHtml}`,
-      fileName: 'report',
-      directory: 'docs',
-    };
-
-    try {
-      const { filePath } = await RNHTMLtoPDF.convert(options);
-      await Share.open({
-        url: `file://${filePath}`,
-        type: 'application/pdf',
-      });
-    } catch (error) {
-      console.error(error);
-    }
+  // HTML and options for the PDF creation
+  let options = {
+    html: `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              line-height: 1.6;
+              color: #333;
+            }
+            h1 {
+              font-size: 24px;
+              text-align: left;
+            }
+            h2 {
+              font-size: 20px;
+              margin-top: 20px;
+            }
+            h3 {
+              font-size: 18px;
+              margin-top: 15px;
+            }
+            p, ul, div {
+              margin-top: 10px;
+              font-size: 16px;
+            }
+            li {
+              margin-bottom: 5px;
+            }
+            hr {
+              border-top: 2px solid #444;
+              margin-top: 20px;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Raportti</h1>
+          <p>Aloituspäivä: ${formatDate(startDate)}</p>
+          <p>Lopetuspäivä: ${formatDate(endDate)}</p>
+          ${summariesHtml}
+        </body>
+      </html>
+    `,
+    fileName: 'report',
+    directory: 'docs',
   };
+
+  try {
+    const { filePath } = await RNHTMLtoPDF.convert(options);
+    await Share.open({
+      url: `file://${filePath}`,
+      type: 'application/pdf',
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <View style={styles.container}>

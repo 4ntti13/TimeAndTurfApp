@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable prettier/prettier */
 // MaterialEntry.tsx:
 import React, { useEffect, useState } from 'react';
 import { Text, StyleSheet, TouchableOpacity, View, FlatList, SafeAreaView } from 'react-native';
@@ -7,17 +8,16 @@ import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import firestore from '@react-native-firebase/firestore';
 
-type MaterialEntryRouteProp = RouteProp<RootStackParamList, 'MaterialEntry'>;
-type MaterialEntryNavigationProp = NavigationProp<RootStackParamList, 'MaterialEntry'>;
-
-type Props = {
-  route: MaterialEntryRouteProp;
-  navigation: MaterialEntryNavigationProp;
-};
-
 const translations: { [key: string]: string } = {
   soils: 'Maa-ainekset',
   pipeFittings: 'Putkitarvikkeet',
+};
+
+type MaterialEntryRouteProp = RouteProp<RootStackParamList, 'MaterialEntry'>;
+type MaterialEntryNavigationProp = NavigationProp<RootStackParamList, 'MaterialEntry'>;
+type Props = {
+  route: MaterialEntryRouteProp;
+  navigation: MaterialEntryNavigationProp;
 };
 
 const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
@@ -39,7 +39,9 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
       selectedCategories,
     });
   };
-
+  const onSelectedCategoriesChange = (newSelectedCategories: string[]) => {
+    setSelectedCategories(newSelectedCategories);
+  };
 
   const onSelectedMaterialsChange = (newSelectedMaterials: string[]) => {
     setSelectedMaterials(prevState => {
@@ -53,21 +55,9 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
     });
   };
 
-  const onSelectedCategoriesChange = (newSelectedCategories: string[]) => {
-    console.log('New selected categories:', newSelectedCategories);
-    setSelectedCategories(newSelectedCategories);
-
-  };
-
-  useEffect(() => {
-    console.log('Selected categories state:', selectedCategories);
-}, [selectedCategories]);
-
-
   useEffect(() => {
     if (selectedCategories.length > 0) {
       const filtered = materials.filter(m => selectedCategories.includes(m.category));
-      console.log('Filtered materials:', filtered);
       setFilteredMaterials(filtered);
     } else {
       setFilteredMaterials([]);
@@ -110,7 +100,7 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
         <Text style={styles.headerTextSmall}>Valittu asiakas: {customer.name}</Text>
         <Text style={styles.headerTextSmall}>Valittu työmaa: {worksite.name}</Text>
       </View>
-      <Text style={styles.headerText}>Valitse materiaalit</Text>
+      <Text style={styles.headerText}>Materiaalivalinta</Text>
       <FlatList
         data={filteredMaterials}
         keyExtractor={item => item.id}
@@ -121,6 +111,8 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
             <View style={styles.multiSelectContainer}>
               <MultiSelect
                 items={categories}
+                searchInputPlaceholderText="Etsi"
+                submitButtonText="Tallenna"
                 selectText="Valitse"
                 selectedText="Valittu"
                 uniqueKey="id"
@@ -132,6 +124,8 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
             <View style={styles.multiSelectContainer}>
               <MultiSelect
                 items={filteredMaterials}
+                searchInputPlaceholderText="Etsi"
+                submitButtonText="Tallenna"
                 selectText="Valitse"
                 selectedText="Valittu"
                 uniqueKey="id"
@@ -143,7 +137,7 @@ const MaterialEntry: React.FC<Props> = ({ route, navigation }) => {
         }
         ListFooterComponent={
           <TouchableOpacity style={styles.buttonContainer} onPress={onProceed}>
-            <Text style={styles.buttonText}>Siirry valitsemaan työkalut</Text>
+            <Text style={styles.buttonText}>Siirry valitsemaan laitteet</Text>
           </TouchableOpacity>
         }
       />
@@ -166,8 +160,8 @@ const styles = StyleSheet.create({
   },
   headerTextSmall: {
     fontSize: 16,
-    fontWeight: '400',  // Lighter font weight for a cleaner look
-    color: '#333',  // Slightly off-black for softer appearance
+    fontWeight: '400',
+    color: '#333',
     textAlign: 'left',
     marginVertical: 8,
   },
@@ -183,7 +177,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.1, // Subtle shadow
+    shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 2,
   },

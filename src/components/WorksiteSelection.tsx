@@ -47,9 +47,29 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
     fetchWorksites();
   }, []);
 
+
+  useEffect(() => {
+    if (selectedCustomer) {
+      const customerWorksites = worksites.filter(
+        (worksite) => worksite.customerId === selectedCustomer.id
+      );
+      if (customerWorksites.length > 0) {
+        setSelectedWorksite(customerWorksites[0]);
+        console.log('Asetetaan valittu työmaa: ', customerWorksites[0]);
+      } else {
+        setSelectedWorksite(null);
+        console.log('Asiakkaalla ei ole työmaita');
+      }
+    } else {
+      setSelectedWorksite(null);
+      console.log('Ei valittua asiakasta');
+    }
+  }, [selectedCustomer, worksites]);
+
   const handleCustomerChange = (value: any) => {
     if (value) {
       const selected = customers.find((customer) => customer.id === value);
+      console.log('Asetetaan valittu asiakas: ', selected);
       setSelectedCustomer(selected);
     }
   };
@@ -57,6 +77,7 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
   const handleWorksiteChange = (value: any) => {
     if (value) {
       const selected = worksites.find((worksite) => worksite.id === value);
+      console.log('Asetetaan valittu työmaa: ', selected);
       setSelectedWorksite(selected);
     }
   };
@@ -91,7 +112,7 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
       </View>
       <View style={styles.pickerContainer}>
         <Picker
-          selectedValue={selectedWorksite?.id || ''}
+          selectedValue={selectedWorksite?.id}
           onValueChange={handleWorksiteChange}
           style={styles.picker}
           enabled={!!selectedCustomer}
@@ -104,7 +125,7 @@ const WorksiteSelection: React.FC<Props> = ({ navigation }) => {
         </Picker>
       </View>
       <TouchableOpacity style={styles.buttonContainer} onPress={handleButtonPress}>
-        <Text style={styles.buttonText}>Jatka</Text>
+        <Text style={styles.buttonText}>Siirry asettamaan aikatiedot</Text>
       </TouchableOpacity>
     </View>
   );

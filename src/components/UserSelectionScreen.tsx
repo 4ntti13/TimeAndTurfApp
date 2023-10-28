@@ -46,7 +46,7 @@ const UserSelectionScreen: React.FC<Props> = ({ route, navigation }) => {
                 renderItem={() => null} // jostain syystä tämä vaaditaan
                 ListHeaderComponent={
                     <View>
-                        <Text style={styles.title}>Valitse työntekijät</Text>
+                        <Text style={styles.title}>           Valitse työntekijät</Text>
                         <View style={styles.multiSelectContainer}>
                             <MultiSelect
                                 items={users}

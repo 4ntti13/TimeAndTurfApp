@@ -1,9 +1,12 @@
 /* eslint-disable prettier/prettier */
+
+/* eslint-disable prettier/prettier */
 // AdminPage.tsx:
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/AppNavigator';
+import auth from '@react-native-firebase/auth';
 
 type AdminPageNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -14,21 +17,33 @@ type Props = {
   navigation: AdminPageNavigationProp;
 };
 
+
 const AdminPage: React.FC<Props> = ({navigation}) => {
+
+
+  const handleSignOut = async () => {
+    try {
+      await auth().signOut();
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Sign out failed', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Pääkäyttäjä - Hallinta</Text>
+      <Text style={styles.title}>Hallintapaneeli</Text>
 
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('AddCustomer')}>
-        <Text style={styles.buttonText}>Lisää Uusi Asiakas</Text>
+        <Text style={styles.buttonText}>Lisää uusi asiakas</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('AddWorksite')}>
-        <Text style={styles.buttonText}>Lisää Uusi Työmaa</Text>
+        <Text style={styles.buttonText}>Lisää uusi työmaa</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -46,7 +61,7 @@ const AdminPage: React.FC<Props> = ({navigation}) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('WorksiteSelection')}>
-        <Text style={styles.buttonText}>Siirry työmaavalintaan</Text>
+        <Text style={styles.buttonText}>Tee työmaasuorite</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -58,7 +73,13 @@ const AdminPage: React.FC<Props> = ({navigation}) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('AddUser')}>
-        <Text style={styles.buttonText}>Lisää Uusi Käyttäjä</Text>
+        <Text style={styles.buttonText}>Lisää uusi käyttäjä</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleSignOut}>
+        <Text style={styles.buttonText}>Kirjaudu ulos</Text>
       </TouchableOpacity>
 
 
@@ -74,18 +95,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#40E0D0',
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 30,
   },
   button: {
     height: 50,
+    width: 250,
     backgroundColor: '#444',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
     borderRadius: 10,
-    paddingHorizontal: 20,
   },
   buttonText: {
     color: 'white',

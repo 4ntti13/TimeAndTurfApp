@@ -6,9 +6,9 @@ import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
-import { AuthContext } from '../contexts/AuthContext';
 import firestore, { firebase } from '@react-native-firebase/firestore';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { AuthContext } from '../contexts/AuthContext';
 import auth from '@react-native-firebase/auth';
 
 
@@ -25,41 +25,13 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
   const { user, setUser } = useContext(AuthContext);
   const [comments, setComments] = useState('');
 
-  const formatTime = (timeString: string) => {
-    const options: Intl.DateTimeFormatOptions = {
-      hour: '2-digit',
-      minute: '2-digit',
-    };
-    const time = new Date(timeString);
-    return time.toLocaleTimeString('fi-FI', options);
-  };
-
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('fi-FI', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-  };
-
   const handleSave = async () => {
-
-    console.log('Selected date (raw):', selectedDate);
-
-    // Luo JavaScript Date-objekti selectedDate-stringistä ja
-    // muunna se sitten Firestore Timestamp-objektiksi.
     const parsedDate = new Date(selectedDate);
-
-    // Tarkista, että luotu päivämäärä on kelvollinen
     if (isNaN(parsedDate.getTime())) {
         console.error('Invalid date:', selectedDate);
         return;
     }
-
     const isoDateString = parsedDate.toISOString().split('T')[0];
-
-
-
     const summaryData = {
       user: user?.email,
       customer: customer.name,
@@ -71,29 +43,40 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
       departureTime: departureTime,
       comments: comments,
     };
-
     try {
       await firestore().collection('summaries').add(summaryData);
       console.log('Tiedot tallennettu onnistuneesti!');
 
-      auth().signOut().then(() => {  // Päivitetty auth().signOut() -muotoon
-        console.log('User signed out successfully');
+      auth().signOut().then(() => {
         setUser(null);
         navigation.navigate('Login');
       }).catch((error) => {
-        console.log('Error signing out: ', error);
       });
 
     } catch (error) {
       console.error('Tietoja ei voitu tallentaa: ', error);
     }
   };
+  const formatTime = (timeString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    const time = new Date(timeString);
+    return time.toLocaleTimeString('fi-FI', options);
+  };
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString('fi-FI', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  };
 
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.headerText}>Yhteenveto</Text>
-      <Text style={styles.subHeaderText}>Tarkasta asettamasi työmaatiedot ja lisää kommenntteja tarvittaessa!</Text>
       <View style={styles.titleContainer}>
         {user && <Text style={styles.headerTextSmall}>Kirjautunut käyttäjä: {user.email}</Text>}
         <Text style={styles.headerTextSmall}>Valittu asiakas: {customer.name}</Text>
@@ -138,7 +121,7 @@ const SummaryScreen: React.FC<Props> = ({ route, navigation }) => {
       </View>
 
       <View style={styles.sectionContainer}>
-        <Text style={styles.noteText}>Kun olet VARMASTI tarkastanut asettamasi työmaatiedot, paina "Tallenna valinnat ja lopeta". Tämä tallentaa tiedot laskutusta varten, eikä niitä voi enää muokata.</Text>
+        <Text style={styles.noteText}>Kun olet VARMASTI tarkastanut asettamasi työmaatiedot, paina "Tallenna valinnat ja lopeta". Tämä tallentaa tiedot laskutusta varten.</Text>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
           <Text style={styles.buttonText}>Tallenna valinnat ja lopeta</Text>
@@ -173,7 +156,7 @@ const styles = StyleSheet.create({
       width: 2,
       height: 2,
     },
-    shadowOpacity: 0.1, // Subtle shadow
+    shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 2,
   },

@@ -32,7 +32,7 @@ const AddTool: React.FC = () => {
       >
         <Picker.Item label="Valitse Kategoria" value="" />
         <Picker.Item label="Koneet" value="machines" />
-        <Picker.Item label="Kuorma-autot" value="trucks" />
+        <Picker.Item label="Autot" value="trucks" />
         <Picker.Item label="Tiivistäjät" value="compactors" />
       </Picker>
       <Text style={styles.label}>Laitteen nimi:</Text>

@@ -59,8 +59,8 @@ const WorksiteDetails: React.FC<Props> = ({ route }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.headerText}>Valittu asiakas: {customer.name}</Text>
-        <Text style={styles.headerText}>Valittu työmaa: {worksite.name}</Text>
+        <Text style={styles.headerTextSmall}>Valittu asiakas: {customer.name}</Text>
+        <Text style={styles.headerTextSmall}>Valittu työmaa: {worksite.name}</Text>
       </View>
 
       <View style={styles.pickerContainer}>
@@ -125,13 +125,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#40E0D0',
   },
   titleContainer: {
-    marginBottom: 20,
+    marginBottom: 25,
+    paddingLeft: 5,
+    borderRadius: 10,
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 2,
   },
   headerText: {
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 5,
+  },
+  headerTextSmall: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#333',
+    textAlign: 'left',
+    marginVertical: 8,
   },
   timeText: {
     fontSize: 16,
