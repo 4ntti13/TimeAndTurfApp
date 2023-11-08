@@ -118,6 +118,15 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+
+    signingConfigs {
+        release {
+            storeFile file("C:\\Oppari\\my-release-key.keystore")
+            storePassword "FanniNaervaenen20!"
+            keyAlias "my-key-alias"
+            keyPassword "FanniNaervaenen20!"
+        }
+    }
     }
     buildTypes {
         debug {

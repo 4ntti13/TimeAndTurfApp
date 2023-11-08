@@ -1,6 +1,4 @@
 /* eslint-disable prettier/prettier */
-
-
 // Import the functions you need from the SDKs
 import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';

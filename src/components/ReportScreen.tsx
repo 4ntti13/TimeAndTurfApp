@@ -20,8 +20,6 @@ type Props = {
   route: ReportScreenRouteProp;
 }
 
-
-
 const ReportScreen: React.FC<Props> = ( {route} ) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -47,12 +45,6 @@ const ReportScreen: React.FC<Props> = ( {route} ) => {
 
         for (const email of emails) {
 
-          console.log('start date:', startDate);
-          console.log('end date:', endDate);
-          console.log('Fetching data for email:', email);
-          console.log('Start:', startString, 'End:',endString);
-
-          // Query to fetch data based on email, startDate, and endDate
           const snapshot = await firestore()
             .collection('summaries')
             .where('user', '==', email)

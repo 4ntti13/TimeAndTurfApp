@@ -165,7 +165,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginVertical: 8,
   },
-
   titleContainer: {
     marginBottom: 25,
     paddingLeft: 5,
