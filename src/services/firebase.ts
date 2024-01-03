@@ -4,7 +4,7 @@ import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyDQsE9hCb1eygsB6xJsP0q5j8UdkRKi7zQ',
+    apiKey:"",
     authDomain: 'timeandturfapp.firebaseapp.com',
     projectId: 'timeandturfapp',
     storageBucket: 'timeandturfapp.appspot.com',
